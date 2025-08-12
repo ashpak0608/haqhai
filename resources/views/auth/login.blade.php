@@ -5,16 +5,16 @@
         <title>Login</title>
 
 		<meta charset="utf-8" />
-		<meta name="description" content="Ajakin" />
-		<meta name="keywords" content="Ajakin" />
+		<meta name="description" content="HAQHAI" />
+		<meta name="keywords" content="HAQHAI" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta property="og:locale" content="en_US" />
 		<meta property="og:type" content="article" />
-		<meta property="og:title" content="Ajakin" />
+		<meta property="og:title" content="HAQHAI" />
 		<meta property="og:url" content="{{ config('constants.SITE_URL') }}" />
-		<meta property="og:site_name" content="Ajakin" />
+		<meta property="og:site_name" content="HAQHAI" />
 
-        <link rel="shortcut icon" href="<?php echo url('public/assets/media/logos/favicon.png')?>">
+        <link rel="shortcut icon" href="<?php echo url('public/assets/media/logos/favicon.ico')?>">
 
 		<!--begin::Fonts(mandatory for all pages)-->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
@@ -34,7 +34,7 @@
 		<!--begin::Root-->
 		<div class="d-flex flex-column flex-root" id="kt_app_root">
 			<!--begin::Page bg image-->
-			<style>body { background-image: url('public/assets/media/auth/bg11.jpg'); } [data-bs-theme="dark"] body { background-image: url('public/assets/media/auth/bg4-dark.jpg'); }</style>
+			<style>body { background-image: url('public/assets/media/auth/bg12-dark.jpg'); } [data-bs-theme="dark"] body { background-image: url('public/assets/media/auth/bg4-dark.jpg'); }</style>
 			<!--end::Page bg image-->
 			<!--begin::Authentication - Sign-in -->
 			<div class="d-flex flex-column flex-column-fluid flex-lg-row">

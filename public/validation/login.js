@@ -27,6 +27,7 @@ $(document).ready(function(){
                 type: "POST",
                 data: formData,
                 success: function(response){
+                    console.log(response);
                     var data = JSON.parse(response);
                     if(data.status == 'success'){
                         window.location.href = SITE_URL+"dashboard";

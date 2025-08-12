@@ -19,7 +19,7 @@ class UserController extends Controller {
 
     function index() {
         try{
-            $data['title'] = "User || Ajakin";
+            $data['title'] = "User || HAQHAI";
             $param=array(
                     'start' => 0,
                     'limit' => 10,
@@ -44,7 +44,7 @@ class UserController extends Controller {
             $param = array();
             $param['start'] = $request->start;
             $param['limit'] = $request->limit;
-            $param['user_name'] = $request->user_name;
+            $param['full_name'] = $request->full_name;
             $param['email_id'] = $request->email_id;
             $param['phone1'] = $request->phone1;
             $objUser = new User;
@@ -67,7 +67,7 @@ class UserController extends Controller {
 
     function add(Request $request , $id=null) { 
         try{
-            $data['title'] = "User - Add || Ajakin";
+            $data['title'] = "User - Add || HAQHAI";
             if($id != null) {
                 $data['id'] = $id;
                 $objUser = new User();
@@ -78,7 +78,7 @@ class UserController extends Controller {
             else {
                 $data['singleData'] = array();
             }
-            $data['districts'] = CommonModel::getSingle('district_master', ['status' => 0]);
+            $data['districts'] = CommonModel::getSingle('district', ['status' => 0]);
             $data['userLevels'] = CommonModel::getSingle('user_level', ['status' => 0]);
             $data['roles'] = CommonModel::getSingle('users_roles', ['status' => 0]);
             return view('user.add',$data);
@@ -90,7 +90,7 @@ class UserController extends Controller {
 
     function view($id=null) {
         try{
-            $data['title'] = "User - View || Ajakin";
+            $data['title'] = "User - View || HAQHAI";
             $param = array('id' => $id);
             $viewLists = User::details($param);
             $data['views'] = $viewLists['data'][0];

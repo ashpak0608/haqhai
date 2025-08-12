@@ -71,9 +71,9 @@ class UserRoleModel extends Model
        $query->leftjoin('users as u','l.created_by','=','u.id');
        $query->leftjoin('users as u1','l.updated_by','=','u1.id');
        $query->select(DB::raw("l.id, l.role_name, l.status,
-        ifnull(u.user_name,'') as created_by,
+        ifnull(u.full_name,'') as created_by,
         ifnull(date_format(l.created_at,'%d-%m-%Y %h:%m %p'),'') as created_at,
-        ifnull(u1.user_name,'') as updated_by,
+        ifnull(u1.full_name,'') as updated_by,
         ifnull(date_format(l.updated_at,'%d-%m-%Y %h:%m %p'),'') as updated_at,
         l.created_by"));
         

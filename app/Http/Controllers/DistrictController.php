@@ -15,12 +15,12 @@ use Illuminate\Routing\Controller as BaseController;
 
 class DistrictController extends Controller {
 
-    protected $table = 'district_master';
+    protected $table = 'district';
 
     function index() {
        try{
-            $data['title'] = "District || Ajakin";
-            $data['states'] = CommonModel::getSingle('state_master', ['status' => 0]);
+            $data['title'] = "District || HAQHAI";
+            $data['states'] = CommonModel::getSingle('states', ['status' => 0]);
             $param=array(
                 'start' => 0,
                 'limit' => 10,
@@ -69,7 +69,7 @@ class DistrictController extends Controller {
 
     function add(Request $request , $id=null) { 
         try{
-            $data['title'] = "District - Add || Ajakin";
+            $data['title'] = "District - Add || HAQHAI";
             if($id != null) {
                 $data['id'] = $id;
                 $objDistrictMasterModel = new DistrictMasterModel();
@@ -78,7 +78,7 @@ class DistrictController extends Controller {
             else {
                 $data['singleData'] = array();
             }
-            $data['states'] = CommonModel::getSingle('state_master', ['status' => 0]);
+            $data['states'] = CommonModel::getSingle('states', ['status' => 0]);
             return view('district.add',$data);
         }
         catch(\Throwable $e){
@@ -89,7 +89,7 @@ class DistrictController extends Controller {
 
     function view($id) {
         try{
-            $data['title'] = "District - View || Ajakin";
+            $data['title'] = "District - View || HAQHAI";
             $param = array('id' => $id);
             $objDistrictMasterModel = new DistrictMasterModel();
             $viewLists = DistrictMasterModel::getAllDistrictDetails($param);

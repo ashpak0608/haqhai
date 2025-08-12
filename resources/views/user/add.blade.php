@@ -26,7 +26,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <label class="required fs-6 fw-semibold mb-1 ms-1">User Name</label>
-                        <input type="text" id="user_name" name="user_name" class="form-control form-control-solid" value="{{ isset($singleData['user_name']) ? $singleData['user_name'] : ''}}" />
+                        <input type="text" id="full_name" name="full_name" class="form-control form-control-solid" value="{{ isset($singleData['full_name']) ? $singleData['full_name'] : ''}}" />
                     </div>
                     <div class="col-md-4">
                         <label class="required fs-6 fw-semibold mb-1 ms-1">Email Id</label>

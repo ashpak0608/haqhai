@@ -13,19 +13,19 @@ use Illuminate\Routing\Controller as BaseController;
 class MenuController extends Controller {
 
     function index() {
-        $data['title'] = "Menu || Ajakin";
+        $data['title'] = "Menu || HAQHAI";
         return view('menu.index',$data);
     }
 
     // function getFiltering(Request $request) {}
 
     function add(Request $request , $id=null) { 
-        $data['title'] = "Menu - Add || Ajakin";
+        $data['title'] = "Menu - Add || HAQHAI";
         return view('menu.add',$data);
     }
 
     function view() {
-        $data['title'] = "Menu - View || Ajakin";
+        $data['title'] = "Menu - View || HAQHAI";
         return view('menu.view',$data);
     }
 

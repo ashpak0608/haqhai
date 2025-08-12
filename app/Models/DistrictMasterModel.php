@@ -11,7 +11,7 @@ class DistrictMasterModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'district_master';
+    protected $table = 'district';
 
     protected $fillable = [
         'id','state_id', 'district_name', 'display_in_home_page','status', 'created_by', 'created_at', 'updated_by', 'updated_at'];
@@ -67,19 +67,19 @@ class DistrictMasterModel extends Model
     }
 
     static function getAllDistrictDetails($param = []){
-       $query = DB::table('district_master as c');
+       $query = DB::table('district as c');
        $query->leftjoin('users as u','c.created_by','=','u.id');
        $query->leftjoin('users as u1','c.updated_by','=','u1.id');
-       $query->join('state_master as s','c.state_id','=','s.id');
+       $query->join('states as s','c.state_id','=','s.id');
        $query->select(DB::raw("
         c.id,
         c.district_name,
         c.state_id,
         c.status,
         s.state_name,
-        ifnull(u.user_name,'') as created_by,
+        ifnull(u.full_name,'') as created_by,
         ifnull(date_format(c.created_at,'%d-%m-%Y %h:%m %p'),'') as created_at,
-        ifnull(u1.user_name,'') as updated_by,
+        ifnull(u1.full_name,'') as updated_by,
         ifnull(date_format(c.updated_at,'%d-%m-%Y %h:%m %p'),'') as updated_at"));
         if(isset($param['status']) && (in_array($param['status'],[0,1]))){
             $query->where('c.status',$param['status']);

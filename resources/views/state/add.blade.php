@@ -20,19 +20,10 @@
 <div class="card mb-4">
     <div class="card-body pt-4 pb-0">
         <div class="d-row row-wrap row-sm-nowrap pb-4">
-            <form id="state_master_form" name="state_master_form" method="post" class="form fv-plugins-bootstrap5 fv-plugins-framework">
+            <form id="states_form" name="states_form" method="post" class="form fv-plugins-bootstrap5 fv-plugins-framework">
             @csrf
             <input type="hidden" id="id" name="id" value="{{isset($singleData['id']) ? $singleData['id'] : ''}}"/>
                 <div class="row">
-                    <div class="col-md-4">
-                        <label class="required fs-6 fw-semibold mb-1 ms-1">Country</label>
-                        <select id="country_id" name="country_id" class="form-select form-select-solid form-select" aria-label="Select" data-control="select2" data-placeholder="Select" required >
-                            <option></option>
-                            @foreach($countries as $country)
-                                <option value="{{ $country->id }}" {{isset($singleData['country_id']) && $singleData['country_id'] == $country->id ? 'selected' : ''}}>{{ $country->country_name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
                     <div class="col-md-4">
                         <label class="required fs-6 fw-semibold mb-1 ms-1">State Name</label>
                         <input type="text" id="state_name" name="state_name" class="form-control form-control-solid" value="{{isset($singleData['state_name']) ? $singleData['state_name'] : ''}}" />
@@ -53,5 +44,5 @@
     </div>
 </div>
 <!--end::Navbar-->
-<script src="{{ url('public/validation/state_master.js') }}"></script>
+<script src="{{ url('public/validation/states.js') }}"></script>
 @endsection

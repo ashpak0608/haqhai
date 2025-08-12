@@ -13,7 +13,7 @@ use Illuminate\Routing\Controller as BaseController;
 class BlankController extends Controller {
 
     function index() {
-        $data['title'] = "Blank || Ajakin";
+        $data['title'] = "Blank || HAQHAI";
         return view('blank.index',$data);
     }
 

@@ -73,7 +73,7 @@ class AreaModel extends Model
        $query = DB::table('areas as a');
        $query->leftjoin('users as u','a.created_by','=','u.id');
        $query->leftjoin('users as u1','a.updated_by','=','u1.id');
-       $query->join('district_master as d','a.district_id','=','d.id');
+       $query->join('district as d','a.district_id','=','d.id');
        $query->join('pin_location_master as l','a.location_id','=','l.id');
        $query->select(DB::raw("
         a.id,
@@ -84,9 +84,9 @@ class AreaModel extends Model
         d.district_name,
         l.location_name,
         ifnull(a.area_name,'') as area_name,
-        ifnull(u.user_name,'') as created_by,
+        ifnull(u.full_name,'') as created_by,
         ifnull(date_format(a.created_at,'%d-%m-%Y %h:%m %p'),'') as created_at,
-        ifnull(u1.user_name,'') as updated_by,
+        ifnull(u1.full_name,'') as updated_by,
         ifnull(date_format(a.updated_at,'%d-%m-%Y %h:%m %p'),'') as updated_at"));
         if(isset($param['status']) && (in_array($param['status'],[0,1]))){
             $query->where('a.status',$param['status']);

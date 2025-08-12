@@ -13,7 +13,7 @@ use Illuminate\Routing\Controller as BaseController;
 class ResetPasswordController extends Controller {
 
     function index() {
-        $data['title'] = "Reset Password || Ajakin";
+        $data['title'] = "Reset Password || HAQHAI";
         return view('auth.reset_password',$data);
     }
 

@@ -11,13 +11,13 @@ class StateMasterModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'state_master';
+    protected $table = 'states';
 
     protected $fillable = [
-        'id','state_name', 'country_id ', 'status', 'created_by', 'created_at', 'updated_by', 'updated_at'];
+        'id','state_name', 'status', 'created_by', 'created_at', 'updated_by', 'updated_at'];
 
     public function getSaveData() {
-        return array('id','state_name','country_id ', 'status', 'created_by', 'created_at', 'updated_by', 'updated_at');
+        return array('id','state_name','status', 'created_by', 'created_at', 'updated_by', 'updated_at');
     }
 
     public function saveData($post) {
@@ -67,19 +67,16 @@ class StateMasterModel extends Model
     }
 
     static function getAllStateMasterDetails($param = []){
-       $query = DB::table('state_master as c');
+       $query = DB::table('states as c');
        $query->leftjoin('users as u','c.created_by','=','u.id');
        $query->leftjoin('users as u1','c.updated_by','=','u1.id');
-       $query->join('country_master as cm','c.country_id','=','cm.id');
        $query->select(DB::raw("
         c.id,
         c.state_name,
-        c.country_id,
         c.status,
-        cm.country_name,
-        ifnull(u.user_name,'') as created_by,
+        ifnull(u.full_name,'') as created_by,
         ifnull(date_format(c.created_at,'%d-%m-%Y %h:%m %p'),'') as created_at,
-        ifnull(u1.user_name,'') as updated_by,
+        ifnull(u1.full_name,'') as updated_by,
         ifnull(date_format(c.updated_at,'%d-%m-%Y %h:%m %p'),'') as updated_at"));
         if(isset($param['status']) && (in_array($param['status'],[0,1]))){
             $query->where('c.status',$param['status']);
@@ -89,9 +86,6 @@ class StateMasterModel extends Model
         }
         if(isset($param['state_name']) && !empty($param['state_name'])){
             $query->where('c.state_name','like','%'.$param['state_name'].'%'); 
-        }
-        if(!empty($param['country_id'])){
-            $query->where('c.country_id',$param['country_id']); 
         }
         $total_count = $query->count();
         if(isset($param['limit']) && isset($param['start'])){

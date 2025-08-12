@@ -6,14 +6,14 @@
 
 		<meta name="csrf-token" content="{{ csrf_token() }}" />
 		<meta charset="utf-8" />
-		<meta name="description" content="Ajakin" />
-		<meta name="keywords" content="Ajakin" />
+		<meta name="description" content="HAQHAI" />
+		<meta name="keywords" content="HAQHAI" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta property="og:locale" content="en_US" />
 		<meta property="og:type" content="article" />
-		<meta property="og:title" content="Ajakin" />
+		<meta property="og:title" content="HAQHAI" />
 		<meta property="og:url" content="{{ config('constants.SITE_URL') }}" />
-		<meta property="og:site_name" content="Ajakin" />
+		<meta property="og:site_name" content="HAQHAI" />
 
         <link rel="shortcut icon" href="<?php echo url('public/assets/media/logos/favicon.png')?>">
 
@@ -93,7 +93,7 @@
 											<!--end::Avatar-->
 											<!--begin::Username-->
 											<div class="d-flex flex-column">
-												<div class="fw-bold d-flex align-items-center fs-5">{{Session::get('user_name')}}
+												<div class="fw-bold d-flex align-items-center fs-5">{{Session::get('full_name')}}
 												<span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span></div>
 											</div>
 											<!--end::Username-->
@@ -270,7 +270,7 @@
 								<!--begin::Copyright-->
 								<div class="text-gray-900 order-2 order-md-1">
 									<span class="text-muted fw-semibold me-1">2025&copy;</span>
-									<a href="javascript:void(0);" target="_blank" class="text-gray-800 text-hover-primary">Ajakin</a>
+									<a href="javascript:void(0);" target="_blank" class="text-gray-800 text-hover-primary">HAQHAI</a>
 								</div>
 								<!--end::Copyright-->
 								<!--begin::Menu-->

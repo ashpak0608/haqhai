@@ -77,7 +77,7 @@ function filtering(filter) {
                         let sr_no = i + 1 + start;
                         let view = SITE_URL + 'login-history/view/' + list[i]['id'];
                         html += `<tr id="follow_up_row${i}">
-                                    <td>${list[i]['user_name']}</td>
+                                    <td>${list[i]['full_name']}</td>
                                     <td>${list[i]['login_date_time']}</td>
                                     <td>${list[i]['ip_address']}</td>
                                     <td>${list[i]['platform']}</td>

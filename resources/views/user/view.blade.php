@@ -24,7 +24,7 @@
                 <div class="row">
                     <label class="col-lg-4 fw-semibold text-muted">User Name</label>
                     <div class="col-lg-8">
-                        <span class="fw-bold fs-6 text-gray-800">{{ isset($views->user_name) ? $views->user_name : ''}}</span>
+                        <span class="fw-bold fs-6 text-gray-800">{{ isset($views->full_name) ? $views->full_name : ''}}</span>
                     </div>
                 </div>
                 <hr>
@@ -128,7 +128,7 @@
                 <div class="row">
                     <label class="col-lg-4 fw-semibold text-muted">Address</label>
                     <div class="col-lg-8">
-                        <span class="fw-bold fs-6 text-gray-800">{{ isset($views->user_name) ? $views->user_name : ''}}</span>
+                        <span class="fw-bold fs-6 text-gray-800">{{ isset($views->full_name) ? $views->full_name : ''}}</span>
                     </div>
                 </div>
                 <hr>

@@ -80,9 +80,9 @@ class PersonalAccessTokenModel extends Model
         c.last_used_at,
         c.expires_at,
         c.status,
-        ifnull(u.user_name,'') as created_by,
+        ifnull(u.full_name,'') as created_by,
         ifnull(date_format(c.created_at,'%d-%m-%Y %h:%m %p'),'') as created_at,
-        ifnull(u1.user_name,'') as updated_by,
+        ifnull(u1.full_name,'') as updated_by,
         ifnull(date_format(c.updated_at,'%d-%m-%Y %h:%m %p'),'') as updated_at"));
         if(isset($param['status']) && (in_array($param['status'],[0,1]))){
             $query->where('c.status',$param['status']);

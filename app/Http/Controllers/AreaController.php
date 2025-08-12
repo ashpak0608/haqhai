@@ -20,8 +20,8 @@ class AreaController extends Controller {
     
     function index() {
         try{
-            $data['title'] = "Area || Ajakin";
-            $data['districts'] = CommonModel::getSingle('district_master', ['status' => 0]);
+            $data['title'] = "Area || HAQHAI";
+            $data['districts'] = CommonModel::getSingle('district', ['status' => 0]);
             $param=array(
                 'start' => 0,
                 'limit' => 10,
@@ -71,7 +71,7 @@ class AreaController extends Controller {
 
     function add(Request $request , $id=null) { 
         try{
-            $data['title'] = "Area - Add || Ajakin";
+            $data['title'] = "Area - Add || HAQHAI";
             if($id != null) {
                 $data['id'] = $id;
                 $objAreaModel = new AreaModel();
@@ -80,7 +80,7 @@ class AreaController extends Controller {
             else {
                 $data['singleData'] = array();
             }
-            $data['districts'] = CommonModel::getSingle('district_master', ['status' => 0]);
+            $data['districts'] = CommonModel::getSingle('district', ['status' => 0]);
             return view('area.add',$data);
         }
         catch(\Throwable $e){
@@ -91,7 +91,7 @@ class AreaController extends Controller {
 
     function view($id) {
         try{
-            $data['title'] = "Area - View || Ajakin";
+            $data['title'] = "Area - View || HAQHAI";
             $param = array('id' => $id);
             $viewLists = AreaModel::details($param);
             $data['views'] = $viewLists['data'][0];

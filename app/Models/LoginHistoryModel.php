@@ -78,7 +78,7 @@ class LoginHistoryModel extends Model
         c.device_details,
         c.browser_details,
         c.status,
-        u.user_name as created_by,
+        u.full_name as created_by,
         date_format(c.created_at,'%d-%m-%Y') as created_at, c.created_by"));
         if(isset($param['status']) && (in_array($param['status'],[0,1]))){
             $query->where('c.status',$param['status']);

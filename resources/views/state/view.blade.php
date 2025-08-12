@@ -22,13 +22,6 @@
         <div class="d-row row-wrap row-sm-nowrap pb-4">
             <form id="view_from" name="view_from" class="form fv-plugins-bootstrap5 fv-plugins-framework">
                 <div class="row">
-                    <label class="col-lg-4 fw-semibold text-muted">Country Name</label>
-                    <div class="col-lg-8">
-                        <span class="fw-bold fs-6 text-gray-800">{{ isset($views->country_name) ? $views->country_name : '' }}</span>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
                     <label class="col-lg-4 fw-semibold text-muted">State Name</label>
                     <div class="col-lg-8">
                         <span class="fw-bold fs-6 text-gray-800">{{ isset($views->state_name) ? $views->state_name : '' }}</span>

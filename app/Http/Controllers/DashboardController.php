@@ -13,7 +13,7 @@ use Illuminate\Routing\Controller as BaseController;
 class DashboardController extends Controller {
 
     function index() {
-        $data['title'] = "Dashboard || Ajakin";
+        $data['title'] = "Dashboard || HAQHAI";
         return view('dashboard.index',$data);
     }
 

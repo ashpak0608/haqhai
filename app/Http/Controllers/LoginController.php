@@ -14,7 +14,7 @@ use Jenssegers\Agent\Agent;
 class LoginController extends Controller {
 
     function index() {
-        $data['title'] = "Login || Ajakin";
+        $data['title'] = "Login || HAQHAI";
         return view('auth.login',$data);
     }
 
@@ -35,6 +35,7 @@ class LoginController extends Controller {
 			$arry['status'] = 0;
 			$objUser = New User();
 			$result = $objUser->checkLoginDetails($arry);
+			
 			if($result['status'] == 'success') {
 				$getData = $result['data'];
 				$userDetails = $getData[0];

@@ -13,7 +13,7 @@ use Illuminate\Routing\Controller as BaseController;
 class VerifyOtpController extends Controller {
 
     function index() {
-        $data['title'] = "Verify OTP || Ajakin";
+        $data['title'] = "Verify OTP || HAQHAI";
         return view('auth.verify_otp',$data);
     }
 

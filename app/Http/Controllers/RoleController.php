@@ -19,7 +19,7 @@ class RoleController extends Controller {
 
     function index() {
         try{
-            $data['title'] = "Role || Ajakin";
+            $data['title'] = "Role || HAQHAI";
             $param = array('start' => 0, 'limit' => 10);
             $objUserRoleModel = new UserRoleModel;
             $lists = $objUserRoleModel->getAllRoleDetails($param);
@@ -62,7 +62,7 @@ class RoleController extends Controller {
 
     function add(Request $request , $id=null) {
         try{
-            $data['title'] = "Role - Add || Ajakin";
+            $data['title'] = "Role - Add || HAQHAI";
             if($id != null) {
                 $data['id'] = $id;
                 $objUserRoleModel = new UserRoleModel();
@@ -80,7 +80,7 @@ class RoleController extends Controller {
 
     function view($id) {
         try{
-            $data['title'] = "Role - View || Ajakin";
+            $data['title'] = "Role - View || HAQHAI";
             $param = array('id' => $id);
             $viewLists = UserRoleModel::getAllRoleDetails($param);
             $data['views'] = $viewLists['data'][0];

@@ -53,5 +53,5 @@
     </div>
 </div>
 <!--end::Navbar-->
-<script src="{{ url('public/validation/district_master.js') }}"></script>
+<script src="{{ url('public/validation/district.js') }}"></script>
 @endsection

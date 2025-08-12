@@ -20,7 +20,7 @@ class UserPageAccessController extends Controller {
 
     function index() {
         try{
-            $data['title'] = "User Page Access || Ajakin";
+            $data['title'] = "User Page Access || HAQHAI";
             $param=['start' => 0 , 'limit' => 10];
             $lists = AccessPermissionModel::getAccessoriesDetails($param);
             $data['total_count'] = $lists['total_count'];
@@ -62,7 +62,7 @@ class UserPageAccessController extends Controller {
 
     function add(Request $request , $id=null) { 
         try{
-            $data['title'] = "User Page Access - Add || Ajakin";
+            $data['title'] = "User Page Access - Add || HAQHAI";
             $data['accessPermissions'] = array();
             $data['singleData'] = array();
             if($id != null){
@@ -80,7 +80,7 @@ class UserPageAccessController extends Controller {
     }
 
     function view($id) {
-        $data['title'] = "User Page Access - View || Ajakin";
+        $data['title'] = "User Page Access - View || HAQHAI";
         return view('user_page_access.view',$data);
     }
 

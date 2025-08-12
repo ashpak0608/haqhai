@@ -13,7 +13,7 @@ use Illuminate\Routing\Controller as BaseController;
 class ForgotPasswordController extends Controller {
 
     function index() {
-        $data['title'] = "Forgot Password || Ajakin";
+        $data['title'] = "Forgot Password || HAQHAI";
         return view('auth.forgot_password',$data);
     }
 

@@ -19,7 +19,7 @@ class SubMenuController extends Controller {
 
     function index() {
         try{
-            $data['title'] = "Sub Menu || Ajakin";
+            $data['title'] = "Sub Menu || HAQHAI";
             $data['modules'] = CommonModel::getSingle('modules', ['status' => 0]);
             $param=array(
                 'start' => 0,
@@ -68,7 +68,7 @@ class SubMenuController extends Controller {
 
     function add(Request $request , $id=null) { 
         try{
-            $data['title'] = "Sub Menu - Add || Ajakin";
+            $data['title'] = "Sub Menu - Add || HAQHAI";
             if($id != null) {
                 $data['id'] = $id;
                 $objSubModuleModel = new SubModuleModel();
@@ -88,7 +88,7 @@ class SubMenuController extends Controller {
 
     function view($id) {
          try{
-            $data['title'] = "Sib Menu - View || Ajakin";
+            $data['title'] = "Sib Menu - View || HAQHAI";
             $param = array('id' => $id);
             $viewLists = SubModuleModel::getSubModuleLists($param);
             $data['views'] = $viewLists['data'][0];

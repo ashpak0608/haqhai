@@ -7,7 +7,7 @@ class UserDetailValidation
     public function validate(array $data)
     {
         $validator = Validator::make($data, [
-            'user_name' => 'required',
+            'full_name' => 'required',
             'email_id' => 'required',
             'phone_1' => 'required',
             //'level_id' => 'required',

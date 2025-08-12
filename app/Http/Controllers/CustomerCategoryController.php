@@ -19,7 +19,7 @@ class CustomerCategoryController extends Controller {
 
     function index() {
         try{
-            $data['title'] = "Customer Category || Ajakin";
+            $data['title'] = "Customer Category || HAQHAI";
             $param=array(
                 'start' => 0,
                 'limit' => 10,
@@ -67,7 +67,7 @@ class CustomerCategoryController extends Controller {
 
     function add(Request $request , $id=null) { 
         try{
-            $data['title'] = "Customer Category - Add || Ajakin";
+            $data['title'] = "Customer Category - Add || HAQHAI";
             if($id != null) {
                 $data['id'] = $id;
                 $objCustomerCategoryModel = new CustomerCategoryModel();
@@ -86,7 +86,7 @@ class CustomerCategoryController extends Controller {
 
     function view($id) {
         try{
-            $data['title'] = "Customer Category - View || Ajakin";
+            $data['title'] = "Customer Category - View || HAQHAI";
             $param = array('id' => $id);
             $viewLists = CustomerCategoryModel::getAllCustomerCategoryDetails($param);
             $data['views'] = $viewLists['data'][0];

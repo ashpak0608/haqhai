@@ -21,7 +21,7 @@ class ChangePasswordController extends Controller {
 
     function index() {
         try{
-            $data['title'] = "Change Password || Ajakin";
+            $data['title'] = "Change Password || HAQHAI";
             $param=array( 'id' => Session::get('id'));
             $lists = User::details($param);
             $data['lists'] = array();

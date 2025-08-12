@@ -19,8 +19,8 @@ class LocationController extends Controller {
     
     function index() {
         try{
-            $data['title'] = "Location || Ajakin";
-            $data['districts'] = CommonModel::getSingle('district_master', ['status' => 0]);
+            $data['title'] = "Location || HAQHAI";
+            $data['districts'] = CommonModel::getSingle('district', ['status' => 0]);
             $param=array(
                 'start' => 0,
                 'limit' => 10,
@@ -70,7 +70,7 @@ class LocationController extends Controller {
 
     function add(Request $request , $id=null) { 
         try{
-            $data['title'] = "Location - Add || Ajakin";
+            $data['title'] = "Location - Add || HAQHAI";
             if($id != null) {
                 $data['id'] = $id;
                 $objPinLocationMasterModel = new PinLocationMasterModel();
@@ -79,7 +79,7 @@ class LocationController extends Controller {
             else {
                 $data['singleData'] = array();
             }
-            $data['districts'] = CommonModel::getSingle('district_master', ['status' => 0]);
+            $data['districts'] = CommonModel::getSingle('district', ['status' => 0]);
             return view('location.add',$data);
         }
         catch(\Throwable $e){
@@ -90,7 +90,7 @@ class LocationController extends Controller {
 
     function view($id) {
         try{
-            $data['title'] = "Location - View || Ajakin";
+            $data['title'] = "Location - View || HAQHAI";
             $param = array('id' => $id);
             $viewLists = PinLocationMasterModel::getAllPinLocationDetails($param);
             $data['views'] = $viewLists['data'][0];

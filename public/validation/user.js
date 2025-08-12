@@ -23,7 +23,7 @@ $(document).ready(function () {
         onfocusout: false,
         errorElement: "div",
         rules: {
-            user_name: {
+            full_name: {
                 required: true,
             },
             email_id: {
@@ -53,7 +53,7 @@ $(document).ready(function () {
             }
         },
         messages: {
-            user_name: "Please enter user name",
+            full_name: "Please enter user name",
             email_id: "Please enter email name",
             phone_1: "Please enter phone",
             //password: "Please enter password",
@@ -96,7 +96,7 @@ $(document).ready(function () {
         limit = $(this).val();
         filter.start = start; 
         filter.limit = limit; 
-        filter.user_name   = $('#user_name').val();
+        filter.full_name   = $('#full_name').val();
         filter.email_id   = $('#email_id').val();
         filter.phone_1   = $('#phone_1').val();
         filtering(filter);                 
@@ -105,7 +105,7 @@ $(document).ready(function () {
     element.on('click','#pagination ul li.filter',function(){
         filter.start = $(this).attr('data-start');
         filter.limit = $(this).attr('data-limit');
-        filter.user_name   = $('#user_name').val();
+        filter.full_name   = $('#full_name').val();
         filter.email_id   = $('#email_id').val();
         filter.phone_1   = $('#phone_1').val();
         filtering(filter);      
@@ -114,14 +114,14 @@ $(document).ready(function () {
 
 
 $("#search").on("click",function(){ 
-    filter.user_name   = $('#user_name').val();
+    filter.full_name   = $('#full_name').val();
     filter.email_id   = $('#email_id').val();
     filter.phone_1   = $('#phone_1').val();
-    if(filter.user_name == '' && filter.email_id == '' && filter.level_id == ''){
-        $("#user_name_error").html('Please enter user name').fadeIn().delay(3000).fadeOut();
+    if(filter.full_name == '' && filter.email_id == '' && filter.level_id == ''){
+        $("#full_name_error").html('Please enter user name').fadeIn().delay(3000).fadeOut();
         $("#email_id_error").html('Please enter email Address').fadeIn().delay(3000).fadeOut();
         $("#phone_1_error").html('Please enter mobile Name').fadeIn().delay(3000).fadeOut();
-        $('#user_name_search').focus();
+        $('#full_name_search').focus();
         return false;
     }
     filter.start     = start;
@@ -131,10 +131,10 @@ $("#search").on("click",function(){
 
  $("#cancel").on("click",function(){ 
         $("#search_limits").val('10').trigger('change');
-    $('#user_name_search').val('');
+    $('#full_name_search').val('');
     $('#email_id_search').val('');
     $('#level_id_search').val('');
-    filter.user_name   = '';
+    filter.full_name   = '';
     filter.email_id   = '';
     filter.level_id   = '';
     filter.start     = start;
@@ -177,7 +177,7 @@ function filtering(filter) {
                         let add = SITE_URL + 'user/add/' + list[i]['id'];
                         let view = SITE_URL + 'user/view/' + list[i]['id'];
                         html += `<tr id="follow_up_row${i}">
-                                    <td>${city[i]['user_name']}</td>
+                                    <td>${city[i]['full_name']}</td>
                                     <td>${city[i]['email_id']}</td>
                                     <td>${city[i]['phone_1']}</td>
                                     <td>${city[i]['level_name']}</td>

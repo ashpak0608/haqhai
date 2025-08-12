@@ -20,7 +20,7 @@ class CountryController extends Controller {
 
     function index() {
         try{
-            $data['title'] = "Country || Ajakin";
+            $data['title'] = "Country || HAQHAI";
             $param=array(
                     'start' => 0,
                     'limit' => 10,
@@ -67,7 +67,7 @@ class CountryController extends Controller {
 
     function add(Request $request , $id=null) {
         try{
-            $data['title'] = "Country - Add || Ajakin";
+            $data['title'] = "Country - Add || HAQHAI";
             if($id != null) {
                 $data['id'] = $id;
                 $objCountryMasterModel = new CountryMasterModel();
@@ -85,7 +85,7 @@ class CountryController extends Controller {
 
     function view($id) {
         try{
-            $data['title'] = "Country - View || Ajakin";
+            $data['title'] = "Country - View || HAQHAI";
             $param = array('id' => $id);
             $viewLists = CountryMasterModel::getAllCountryDetails($param);
             $data['views'] = $viewLists['data'][0];

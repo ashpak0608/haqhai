@@ -69,7 +69,7 @@ class UserLoginInfoModel extends Model
        $query->leftjoin('users as u','c.user_id','=','u.id');
        $query->select(DB::raw("
         c.id,
-        u.user_name,
+        u.full_name,
         ip_address,
         browser,
         platform,

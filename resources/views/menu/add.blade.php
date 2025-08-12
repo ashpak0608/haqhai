@@ -20,7 +20,7 @@
 <div class="card mb-4">
     <div class="card-body pt-4 pb-0">
         <div class="d-row row-wrap row-sm-nowrap pb-4">
-            <form id="state_master_form" name="state_master_form" method="post" class="form fv-plugins-bootstrap5 fv-plugins-framework">
+            <form id="states_form" name="states_form" method="post" class="form fv-plugins-bootstrap5 fv-plugins-framework">
             @csrf
             <input type="hidden" id="id" name="id" value="{{isset($singleData['id']) ? $singleData['id'] : ''}}"/>
                 <div class="row">

@@ -1,0 +1,38 @@
+# Laravel specific
+/vendor
+/node_modules
+/public/storage
+/storage/*.key
+.env
+.env.*
+.phpunit.result.cache
+Homestead.yaml
+Homestead.json
+
+# Laravel logs and caches
+/storage/logs
+/storage/framework/cache
+/storage/framework/sessions
+/storage/framework/views
+/storage/framework/testing
+
+# IDE & OS files
+.idea
+.vscode
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+
+# Composer & NPM debug logs
+composer.lock
+npm-debug.log
+yarn-error.log
+
+# PHPUnit
+.phpunit.result.cache
+coverage
+
+# Other
+/public/hot
+/public/mix-manifest.json

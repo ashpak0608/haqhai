@@ -35,6 +35,8 @@ use App\Http\Controllers\SubMenuController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\DistrictController;
+use App\Http\Controllers\CityController;
+use App\Http\Controllers\WardController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\UserLevelController;
 use App\Http\Controllers\UserController;
@@ -183,6 +185,26 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::prefix('district')->name('district.')->controller(DistrictController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('filter', 'getFiltering')->name('filter');
+        Route::get('add/{id?}', 'add')->name('add');
+        Route::get('view/{id?}', 'view')->name('view');
+        Route::post('save', 'save')->name('save');
+        Route::get('status/{status}/{id}', 'updateStatus')->name('status');
+        Route::get('export', 'dataDownload')->name('data-download');
+    });
+
+    Route::prefix('city')->name('city.')->controller(CityController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('filter', 'getFiltering')->name('filter');
+        Route::get('add/{id?}', 'add')->name('add');
+        Route::get('view/{id?}', 'view')->name('view');
+        Route::post('save', 'save')->name('save');
+        Route::get('status/{status}/{id}', 'updateStatus')->name('status');
+        Route::get('export', 'dataDownload')->name('data-download');
+    });
+
+    Route::prefix('ward')->name('ward.')->controller(WardController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('filter', 'getFiltering')->name('filter');
         Route::get('add/{id?}', 'add')->name('add');

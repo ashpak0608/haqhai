@@ -23,16 +23,6 @@
             <form id="search_from" name="search_from" class="form fv-plugins-bootstrap5 fv-plugins-framework">
                 <div class="row">
                     <div class="col-md-4">
-                        <label class="fs-6 fw-semibold mb-1 ms-">Country</label>
-                        <select id="country_id" name="country_id" class="form-select form-select-solid form-select" aria-label="Select" data-control="select2" data-placeholder="Select">
-                            <option></option>
-                            @foreach($countries as $country)
-                                <option value="{{ $country->id }}">{{ $country->country_name }}</option>
-                            @endforeach
-                        </select>
-                        <span class="error" id="country_id_error"></span>
-                    </div>
-                    <div class="col-md-4">
                         <label class="fs-6 fw-semibold mb-1 ms-1">State Name</label>
                         <input type="text" id="state_name" name="state_name" class="form-control form-control-solid" />
                         <span class="error" id="state_name_error"></span>
@@ -81,7 +71,6 @@
                 <thead>
                     <tr class="text-start text-muted fw-bold fs-7 gs-0">
                         <th>Sr. No.</th>
-                        <th>Country</th>
                         <th>State Name</th>
                         <th>Status</th>
                         <th>Action</th>
@@ -91,7 +80,6 @@
                 @foreach($lists as $key => $list)
                     <tr>
                         <td>{{$key+1}}</td>
-                        <td>{{$list->country_name}}</td>
                         <td>{{$list->state_name}}</td>
                         <td>
                             <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
@@ -158,6 +146,6 @@
 </div>
 <!--end::Card-->
 
-<script src="{{ url('public/validation/state_master.js') }}"></script>
+<script src="{{ url('public/validation/states.js') }}"></script>
 
 @endsection

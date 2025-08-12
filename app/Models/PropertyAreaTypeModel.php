@@ -74,9 +74,9 @@ class PropertyAreaTypeModel extends Model
             f.id,
             f.area_type,
             f.status,
-            ifnull(u.user_name,'') as created_by,
+            ifnull(u.full_name,'') as created_by,
             ifnull(date_format(f.created_at, '%d-%m-%Y %h:%i %p'),'') as created_at,
-            ifnull(u1.user_name,'') as updated_by,
+            ifnull(u1.full_name,'') as updated_by,
             ifnull(date_format(f.updated_at, '%d-%m-%Y %h:%i %p'),'') as updated_at"));
 
         if (isset($param['status']) && in_array($param['status'], [0, 1])) {

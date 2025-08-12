@@ -16,7 +16,7 @@ class ProfileController extends Controller {
 
     function index() {
         try{
-            $data['title'] = "Profile || Ajakin";
+            $data['title'] = "Profile || HAQHAI";
             $param=array( 'id' => Session::get('id'));
             $lists = User::details($param);
             $data['lists'] = array();

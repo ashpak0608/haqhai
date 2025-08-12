@@ -5,14 +5,14 @@
 		<title>{{$title}}</title>
 
 		<meta charset="utf-8" />
-		<meta name="description" content="Ajakin" />
-		<meta name="keywords" content="Ajakin" />
+		<meta name="description" content="HAQHAI" />
+		<meta name="keywords" content="HAQHAI" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta property="og:locale" content="en_US" />
 		<meta property="og:type" content="article" />
-		<meta property="og:title" content="Ajakin" />
+		<meta property="og:title" content="HAQHAI" />
 		<meta property="og:url" content="{{ config('constants.SITE_URL') }}" />
-		<meta property="og:site_name" content="Ajakin" />
+		<meta property="og:site_name" content="HAQHAI" />
 
         <link rel="shortcut icon" href="<?php echo url('public/assets/media/logos/favicon.png')?>">
 

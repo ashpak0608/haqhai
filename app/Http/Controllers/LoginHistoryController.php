@@ -16,7 +16,7 @@ class LoginHistoryController extends Controller {
 
     function index() {
         try{
-            $data['title'] = "Login History || Ajakin";
+            $data['title'] = "Login History || HAQHAI";
             $param=array(
                     'start' => 0,
                     'limit' => 10,
@@ -61,7 +61,7 @@ class LoginHistoryController extends Controller {
 
     function view($id = null) {
         try{
-            $data['title'] = "Login History - View || Ajakin";
+            $data['title'] = "Login History - View || HAQHAI";
             $param = array('id' => $id);
             $viewLists = UserLoginInfoModel::details($param);
             $data['views'] = $viewLists['data'][0];

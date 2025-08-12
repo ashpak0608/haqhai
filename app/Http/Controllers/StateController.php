@@ -15,12 +15,11 @@ use Illuminate\Routing\Controller as BaseController;
 
 class StateController extends Controller {
     
-    protected $table = 'state_master';
+    protected $table = 'states';
 
     function index() {
         try{
-            $data['title'] = "State || Ajakin";
-            $data['countries'] = CommonModel::getSingle('country_master', ['status' => 0]);
+            $data['title'] = "State || HAQHAI";
             $param=array(
                 'start' => 0,
                 'limit' => 10,
@@ -45,7 +44,6 @@ class StateController extends Controller {
             $param = array();
             $param['start'] = $request->start;
             $param['limit'] = $request->limit;
-            $param['country_id'] = $request->country_id;
             $param['state_name'] = $request->state_name;
             $param['status'] = $request->status;
             $objStateMasterModel = new StateMasterModel;
@@ -68,7 +66,7 @@ class StateController extends Controller {
 
     function add(Request $request , $id=null) {
         try{
-            $data['title'] = "State - Add || Ajakin";
+            $data['title'] = "State - Add || HAQHAI";
             if($id != null) {
                 $data['id'] = $id;
                 $objStateMasterModel = new StateMasterModel();
@@ -77,7 +75,6 @@ class StateController extends Controller {
             else {
                 $data['singleData'] = array();
             }
-            $data['countries'] = CommonModel::getSingle('country_master', ['status' => 0]);
             return view('state.add',$data);
         }catch(\Throwable $e){
                 $returnData = array('status' => 'warning', 'message' => $e->getMessage());
@@ -87,7 +84,7 @@ class StateController extends Controller {
 
     function view($id) {
         try{
-            $data['title'] = "State - View || Ajakin";
+            $data['title'] = "State - View || HAQHAI";
             $param = array('id' => $id);
             $viewLists = StateMasterModel::getAllStateMasterDetails($param);
             $data['views'] = $viewLists['data'][0];
@@ -110,11 +107,10 @@ class StateController extends Controller {
             $objCommon = new CommonModel();
             $uniqueFieldValue = [
                 "state_name" => $request->state_name,
-                "country_id" => $request->country_id,
             ];
             $uniqueCount = $objCommon->checkMultiUnique($this->table,$uniqueFieldValue,$request["id"]);
             if ($uniqueCount > 0) {
-                $returnData = ["status" => "exist","message" => "Country and State already exists!","unique_field" => $uniqueFieldValue];
+                $returnData = ["status" => "exist","message" => "State already exists!","unique_field" => $uniqueFieldValue];
                 return json_encode($returnData);
             }
             $objStateMasterModel = new StateMasterModel();

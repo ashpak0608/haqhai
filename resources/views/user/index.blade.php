@@ -24,8 +24,8 @@
                 <div class="row">
                     <div class="col-md-4">
                         <label class="fs-6 fw-semibold mb-1 ms-1">User Name</label>
-                        <input type="text" id="user_name" name="user_name" class="form-control form-control-solid" />
-                        <span class="text-danger" id="user_name_error"></span>
+                        <input type="text" id="full_name" name="full_name" class="form-control form-control-solid" />
+                        <span class="text-danger" id="full_name_error"></span>
                     </div>
                     <div class="col-md-4">
                         <label class="fs-6 fw-semibold mb-1 ms-1">Email ID</label>
@@ -93,7 +93,7 @@
                 @foreach($lists as $key => $list)
                     <tr>
                         <td>{{$key+1}}</td>
-                        <td>{{$list->user_name}}</td>
+                        <td>{{$list->full_name}}</td>
                         <td>{{$list->email_id}}</td>
                         <td>{{$list->phone_1}}</td>
                         <td>{{$list->level_name}}</td>
