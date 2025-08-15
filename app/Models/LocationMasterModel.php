@@ -7,22 +7,22 @@ use Session;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class PinLocationMasterModel extends Model
+class LocationMasterModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'pin_location_master';
+    protected $table = 'locations';
 
     protected $fillable = [
-        'id','location_name', 'pincode', 'district_id', 'status', 'created_by', 'created_at', 'updated_by', 'updated_at'];
+        'id','location_name',  'city_id', 'status', 'created_by', 'created_at', 'updated_by', 'updated_at'];
 
     public function getSaveData() {
-        return array('id','location_name','pincode', 'district_id', 'status', 'created_by', 'created_at', 'updated_by', 'updated_at');
+        return array('id','location_name', 'city_id', 'status', 'created_by', 'created_at', 'updated_by', 'updated_at');
     }
 
     public function saveData($post) {
         $saveFields = $this->getSaveData();
-        $finalData = new PinLocationMasterModel;
+        $finalData = new LocationMasterModel;
         foreach ($post as $k => $v) {
             if (in_array($k, $saveFields)) {
                 $finalData[$k] = $v;
@@ -41,7 +41,7 @@ class PinLocationMasterModel extends Model
             $finalData['updated_at'] = null;
             $finalData->save();
             $id = $finalData->id;
-            return array('id' => $id, 'status' => 'success', 'message' => "Pin Location Data saved!");
+            return array('id' => $id, 'status' => 'success', 'message' => "Location Data saved!");
         } else {
             if ($this->getSingleData($id)) {
                 $finalData['updated_at'] = date("Y-m-d H:i:s");
@@ -49,7 +49,7 @@ class PinLocationMasterModel extends Model
                 $finalData->exists = true;
                 $finalData->id = $id;
                 $finalData->save();
-                return array('id' => $id, 'status' => 'success', 'message' => "Pin Location Data updated!");
+                return array('id' => $id, 'status' => 'success', 'message' => "Location Data updated!");
             } else {
                 return false;
             }
@@ -67,17 +67,16 @@ class PinLocationMasterModel extends Model
     }
 
     static function getAllPinLocationDetails($param = []){
-       $query = DB::table('pin_location_master as c');
+       $query = DB::table('locations as c');
        $query->leftjoin('users as u','c.created_by','=','u.id');
        $query->leftjoin('users as u1','c.updated_by','=','u1.id');
-       $query->join('district as d','c.district_id','=','d.id');
+       $query->join('cities as d','c.city_id','=','d.id');
        $query->select(DB::raw("
         c.id,
         c.location_name,
-        c.pincode,
-        c.district_id ,
+        c.city_id ,
         c.status,
-        d.district_name,
+        d.city_name,
         ifnull(u.full_name,'') as created_by,
         ifnull(date_format(c.created_at,'%d-%m-%Y %h:%m %p'),'') as created_at,
         ifnull(u1.full_name,'') as updated_by,
@@ -91,8 +90,8 @@ class PinLocationMasterModel extends Model
         if(isset($param['location_name']) && !empty($param['location_name'])){
             $query->where('c.location_name','like','%'.$param['location_name'].'%'); 
         }
-        if(!empty($param['district_id'])){
-            $query->where('c.district_id',$param['district_id']);
+        if(!empty($param['city_id'])){
+            $query->where('c.city_id',$param['city_id']);
         }
         $total_count = $query->count();
         if(isset($param['limit']) && isset($param['start'])){

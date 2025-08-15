@@ -2,12 +2,13 @@
 namespace App\Validations;
 use Illuminate\Support\Facades\Validator;
 
-class FloorMasterValidation
+class LandmarkMasterValidation
 {
     public function validate(array $data)
     {
         $validator = Validator::make($data, [
-            'floor_name' => 'required',
+            'landmark_name' => 'required',
+            'area_id' => 'required',
         ]);
 
         if ($validator->fails()) {

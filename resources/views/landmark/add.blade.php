@@ -6,10 +6,10 @@
     <div id="kt_app_toolbar_container" class="container-fluid d-flex align-items-stretch">
         <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
             <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
-                <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Area</h1>
+                <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">{{$permissions['sub_module_name']}}</h1>
             </div>
             <div class="d-flex align-items-center gap-2 gap-lg-3">
-                <a href="<?php echo url('areas');?>" class="btn btn-flex btn-outline btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold"><i class="ki-outline ki-left fs-2"></i>Back</a>
+                <a href="<?php echo url('district');?>" class="btn btn-flex btn-outline btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold"><i class="ki-outline ki-left fs-2"></i>Back</a>
             </div>
         </div>
     </div>
@@ -20,22 +20,22 @@
 <div class="card mb-4">
     <div class="card-body pt-4 pb-0">
         <div class="d-row row-wrap row-sm-nowrap pb-4">
-            <form id="area_form" name="area_form" method="post" class="form fv-plugins-bootstrap5 fv-plugins-framework">
+            <form id="landmark_form" name="landmark_form" method="post" class="form fv-plugins-bootstrap5 fv-plugins-framework">
             @csrf
             <input type="hidden" id="id" name="id" value="{{isset($singleData['id']) ? $singleData['id'] : ''}}"/>
                 <div class="row">
                     <div class="col-md-4">
-                        <label class="required fs-6 fw-semibold mb-1 ms-1">Location</label>
-                        <select id="location_id" name="location_id" class="form-select form-select-solid form-select" aria-label="Select" data-control="select2" data-placeholder="Select" required >
+                        <label class="required fs-6 fw-semibold mb-1 ms-1">Area</label>
+                        <select id="area_id" name="area_id" class="form-select form-select-solid form-select" aria-label="Select" data-control="select2" data-placeholder="Select" required>
                             <option></option>
-                                @foreach($locations as $location)
-                                    <option value="{{ $location->id }}" {{isset($singleData['location_id']) && $singleData['location_id'] == $location->id ? 'selected' : ''}}>{{ $location->location_name }}</option>
-                                @endforeach
+                            @foreach($areas as $area)
+                                <option value="{{ $area->id }}" {{isset($singleData['area_id']) && $singleData['area_id'] == $area->id ? 'selected' : ''}}>{{ $area->area_name }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <label class="required fs-6 fw-semibold mb-1 ms-1">Area</label>
-                        <input type="text" id="area_name" name="area_name" class="form-control form-control-solid" value="{{isset($singleData['area_name']) ? $singleData['area_name'] : ''}}"/>
+                        <label class="required fs-6 fw-semibold mb-1 ms-1">Landmark Name</label>
+                        <input type="text" id="landmark_name" name="landmark_name" class="form-control form-control-solid" value="{{isset($singleData['landmark_name']) ? $singleData['landmark_name'] : ''}}" />
                     </div>
                 </div>
                 <hr>
@@ -53,5 +53,5 @@
     </div>
 </div>
 <!--end::Navbar-->
-<script src="{{ url('public/validation/area.js') }}"></script>
+<script src="{{ url('public/validation/landmark.js') }}"></script>
 @endsection

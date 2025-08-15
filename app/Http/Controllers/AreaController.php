@@ -7,7 +7,7 @@ use DB;
 use Session;
 use App\Models\CommonModel;
 use Illuminate\Http\Request;
-use App\Models\PinLocationMasterModel;
+use App\Models\LocationMasterModel;
 use App\Models\AreaModel;
 use App\validations\AreaMasterValidation;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -21,7 +21,7 @@ class AreaController extends Controller {
     function index() {
         try{
             $data['title'] = "Area || HAQHAI";
-            $data['districts'] = CommonModel::getSingle('district', ['status' => 0]);
+            $data['locations'] = CommonModel::getSingle('locations', ['status' => 0]);
             $param=array(
                 'start' => 0,
                 'limit' => 10,
@@ -49,7 +49,6 @@ class AreaController extends Controller {
             $param['limit'] = $request->limit;
             $param['area_name'] = $request->area_name;
             $param['location_id'] = $request->location_id;
-            $param['district_id'] = $request->district_id;
             $param['status'] = $request->status;
             $objAreaModel = new AreaModel;
             $lists = $objAreaModel->details($param);
@@ -80,7 +79,7 @@ class AreaController extends Controller {
             else {
                 $data['singleData'] = array();
             }
-            $data['districts'] = CommonModel::getSingle('district', ['status' => 0]);
+            $data['locations'] = CommonModel::getSingle('locations', ['status' => 0]);
             return view('area.add',$data);
         }
         catch(\Throwable $e){
@@ -114,12 +113,11 @@ class AreaController extends Controller {
             $objCommon = new CommonModel();
             $uniqueFieldValue = [
                 "area_name" => $request->area_name,
-                "district_id" => $request->district_id,
-                "area_name" => $request->area_name,
+                "location_id" => $request->location_id
             ];
             $uniqueCount = $objCommon->checkMultiUnique($this->table,$uniqueFieldValue,$request["id"]);
             if ($uniqueCount > 0) {
-                $returnData = ["status" => "exist","message" => "Location Name , District  and Area  already exists!","unique_field" => $uniqueFieldValue];
+                $returnData = ["status" => "exist","message" => "Location Name and Area  already exists!","unique_field" => $uniqueFieldValue];
                 return json_encode($returnData);
             }
             $objAreaModel = new AreaModel();

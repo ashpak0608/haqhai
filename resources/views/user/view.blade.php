@@ -41,20 +41,7 @@
                         <span class="fw-bold fs-6 text-gray-800">{{ isset($views->phone_1) ? $views->phone_1 : ''}}</span>
                     </div>
                 </div>
-                <!-- <hr> -->
-                <!-- <div class="row">
-                    <label class="col-lg-4 fw-semibold text-muted">Phone 2</label>
-                    <div class="col-lg-8">
-                        <span class="fw-bold fs-6 text-gray-800"></span>
-                    </div>
-                </div> -->
-                <hr>
-                <div class="row">
-                    <label class="col-lg-4 fw-semibold text-muted">User Level</label>
-                    <div class="col-lg-8">
-                        <span class="fw-bold fs-6 text-gray-800">{{ isset($views->level_name) ? $views->level_name : ''}}</span>
-                    </div>
-                </div>
+ 
                 <hr>
                 <div class="row">
                     <label class="col-lg-4 fw-semibold text-muted">Gender</label>
@@ -62,96 +49,6 @@
                         <span class="fw-bold fs-6 text-gray-800">{{ isset($views->gender) ? $views->gender : ''}}</span>
                     </div>
                 </div>
-                <hr>
-                <div class="row">
-                    <label class="col-lg-4 fw-semibold text-muted">Marital Status</label>
-                    <div class="col-lg-8">
-                        <span class="fw-bold fs-6 text-gray-800">{{ isset($views->marital_status) ? $views->marital_status : ''}}</span>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <label class="col-lg-4 fw-semibold text-muted">DOB</label>
-                    <div class="col-lg-8">
-                        <span class="fw-bold fs-6 text-gray-800">{{ isset($views->dob) ? $views->dob : ''}}</span>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <label class="col-lg-4 fw-semibold text-muted">DOA</label>
-                    <div class="col-lg-8">
-                        <span class="fw-bold fs-6 text-gray-800">{{ isset($views->doa) ? $views->doa : ''}}</span>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <label class="col-lg-4 fw-semibold text-muted">Aadhaar Card No.</label>
-                    <div class="col-lg-8">
-                        <span class="fw-bold fs-6 text-gray-800">{{ isset($views->aadhar_card_no) ? $views->aadhar_card_no : ''}}</span>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <label class="col-lg-4 fw-semibold text-muted">PAN Card No.</label>
-                    <div class="col-lg-8">
-                        <span class="fw-bold fs-6 text-gray-800">{{ isset($views->pan_card_no) ? $views->pan_card_no : ''}}</span>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <label class="col-lg-4 fw-semibold text-muted">District</label>
-                    <div class="col-lg-8">
-                        <span class="fw-bold fs-6 text-gray-800">{{ isset($views->district_name) ? $views->district_name : ''}}</span>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <label class="col-lg-4 fw-semibold text-muted">Location</label>
-                    <div class="col-lg-8">
-                        <span class="fw-bold fs-6 text-gray-800">{{ isset($views->location_name) ? $views->location_name : ''}}</span>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <label class="col-lg-4 fw-semibold text-muted">Latitude</label>
-                    <div class="col-lg-8">
-                        <span class="fw-bold fs-6 text-gray-800">{{ isset($views->latitude) ? $views->latitude : ''}}</span>
-                    </div>
-                </div>
-                <div class="row">
-                    <label class="col-lg-4 fw-semibold text-muted">Longitude</label>
-                    <div class="col-lg-8">
-                        <span class="fw-bold fs-6 text-gray-800">{{ isset($views->longitude) ? $views->longitude : ''}}</span>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <label class="col-lg-4 fw-semibold text-muted">Address</label>
-                    <div class="col-lg-8">
-                        <span class="fw-bold fs-6 text-gray-800">{{ isset($views->full_name) ? $views->full_name : ''}}</span>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <label class="col-lg-4 fw-semibold text-muted">About Me</label>
-                    <div class="col-lg-8">
-                        <span class="fw-bold fs-6 text-gray-800">{{ isset($views->about_me) ? $views->about_me : ''}}</span>
-                    </div>
-                </div>
-                <!-- <hr> -->
-                <!-- <div class="row">
-                    <label class="col-lg-4 fw-semibold text-muted">From year in Business</label>
-                    <div class="col-lg-8">
-                        <span class="fw-bold fs-6 text-gray-800"></span>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <label class="col-lg-4 fw-semibold text-muted">RERA Registration No.</label>
-                    <div class="col-lg-8">
-                        <span class="fw-bold fs-6 text-gray-800"></span>
-                    </div>
-                </div> -->
                 <hr>
                 <div class="row">
                     <label class="col-lg-4 fw-semibold text-muted">Status</label>

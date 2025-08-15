@@ -73,7 +73,7 @@ class AccessPermissionModel extends Model
 
     public static function getAllAccessPermissionDetails($param = []) {
         $query = DB::table('access_permission as a')
-            ->leftJoin('users_roles as r', 'a.role_id', '=', 'r.id')
+            ->leftJoin('roles as r', 'a.role_id', '=', 'r.id')
             ->select('a.role_id', 'r.role_name', 'r.status')
             ->distinct()
             ->orderBy('r.role_name', 'ASC')
@@ -102,7 +102,7 @@ class AccessPermissionModel extends Model
 
     static function getAccessoriesDetails($param = []){
         $query = DB::table('access_permission as l');
-        $query->join('users_roles as r','l.role_id','=','r.id');
+        $query->join('roles as r','l.role_id','=','r.id');
         $query->leftjoin('users as u','l.created_by','=','u.id');
         $query->leftjoin('users as u1','l.updated_by','=','u1.id');
         $query->select(DB::raw("l.id, r.role_name, l.status,l.role_id,
@@ -127,8 +127,8 @@ class AccessPermissionModel extends Model
              $query->limit($param['limit'])->offset($param['offset']);
          }
          
-         $query->orderBy('l.id','desc');
-         $query->groupBy('l.role_id');
+        //  $query->orderBy('l.id','desc');
+        //  $query->groupBy('l.role_id');
          $result = $query->get();
          if($total_count > 0){
              return array('total_count'=>$total_count,'data'=>$result);

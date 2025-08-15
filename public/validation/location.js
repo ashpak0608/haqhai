@@ -27,10 +27,10 @@ $(document).ready(function () {
     });
     
     $("#search").on("click",function(){ 
-        filter.district_id   = $('#district_id').val();
+        filter.city_id   = $('#city_id').val();
         filter.location_name   = $('#location_name').val();
-        if(filter.district_id == '' && filter.location_name == '') {
-            $("#district_id_error").html('Please select district').fadeIn().delay(3000).fadeOut();
+        if(filter.city_id == '' && filter.location_name == '') {
+            $("#city_id_error").html('Please select city').fadeIn().delay(3000).fadeOut();
             $("#location_name_error").html('Please enter location name').fadeIn().delay(3000).fadeOut();
             return false;
         }
@@ -42,9 +42,9 @@ $(document).ready(function () {
      $("#cancel").on("click",function(){ 
         $("#search_limits").val('10').trigger('change');
         $('#location_name').val('');
-        $('#district_id').val('').trigger('change');
+        $('#city_id').val('').trigger('change');
         filter.location_name   = '';
-        filter.district_id   = '';
+        filter.city_id   = '';
         filter.start     = start;
         filter.limit     = limit;
         filtering(filter);
@@ -61,10 +61,7 @@ $(document).ready(function () {
             location_name: {
                 required: true,
             },
-            pincode: {
-                required: true,
-            },
-            district_id: {
+            city_id: {
                 required: true,
             },
         },
@@ -72,11 +69,8 @@ $(document).ready(function () {
             location_name: {
                 required: "Please Enter location Name.",
             },
-            pincode: {
-                required: "Please Enter pincode.",
-            },
-            district_id: {
-                required: "Please Enter District name.",
+            city_id: {
+                required: "Please Enter city name.",
             },
         },
         submitHandler: function (form) {
@@ -134,8 +128,7 @@ function filtering(filter) {
                         let view = SITE_URL + 'location/view/' + list[i]['id'];
                         html += `<tr id="follow_up_row${i}">
                                     <td>${sr_no}</td>
-                                    <td>${list[i]['pincode']}</td>
-                                    <td>${list[i]['district_name']}</td>
+                                    <td>${list[i]['city_name']}</td>
                                     <td>${list[i]['location_name']}</td>
                                     <td>
                                         <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid">

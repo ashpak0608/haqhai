@@ -15,7 +15,7 @@ use Illuminate\Routing\Controller as BaseController;
 
 class RoleController extends Controller {
 
-    protected $table = 'users_roles';
+    protected $table = 'roles';
 
     function index() {
         try{

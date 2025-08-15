@@ -11,7 +11,7 @@ class UserRoleModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'users_roles';
+    protected $table = 'roles';
 
     protected $fillable = [
         'id', 'role_name', 'status', 'created_by', 'created_at', 'updated_by', 'updated_at'];
@@ -67,7 +67,7 @@ class UserRoleModel extends Model
     }
 
     static function getAllRoleDetails($param = []){
-       $query = DB::table('users_roles as l');
+       $query = DB::table('roles as l');
        $query->leftjoin('users as u','l.created_by','=','u.id');
        $query->leftjoin('users as u1','l.updated_by','=','u1.id');
        $query->select(DB::raw("l.id, l.role_name, l.status,

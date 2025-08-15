@@ -38,6 +38,7 @@ use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\WardController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\LandmarkController;
 use App\Http\Controllers\UserLevelController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPageAccessController;
@@ -235,7 +236,15 @@ Route::middleware(['auth'])->group(function () {
         Route::get('export', 'dataDownload')->name('data-download');
     });
 
-
+    Route::prefix('landmark')->name('landmark.')->controller(LandmarkController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('filter', 'getFiltering')->name('filter');
+        Route::get('add/{id?}', 'add')->name('add');
+        Route::get('view/{id?}', 'view')->name('view');
+        Route::post('save', 'save')->name('save');
+        Route::get('status/{status}/{id}', 'updateStatus')->name('status');
+        Route::get('export', 'dataDownload')->name('data-download');
+    });
 
     Route::prefix('user-level')->name('user-level.')->controller(UserLevelController::class)->group(function () {
         Route::get('/', 'index')->name('index');

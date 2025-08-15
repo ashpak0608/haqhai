@@ -22,9 +22,9 @@
         <div class="d-row row-wrap row-sm-nowrap pb-4">
             <form id="view_from" name="view_from" class="form fv-plugins-bootstrap5 fv-plugins-framework">
                 <div class="row">
-                    <label class="col-lg-4 fw-semibold text-muted">District Name</label>
+                    <label class="col-lg-4 fw-semibold text-muted">City Name</label>
                     <div class="col-lg-8">
-                        <span class="fw-bold fs-6 text-gray-800">{{ isset($views->district_name) ? $views->district_name : '' }}</span>
+                        <span class="fw-bold fs-6 text-gray-800">{{ isset($views->city_name) ? $views->city_name : '' }}</span>
                     </div>
                 </div>
                 <hr>

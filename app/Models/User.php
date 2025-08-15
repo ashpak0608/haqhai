@@ -31,7 +31,8 @@ class User extends Authenticatable
 
     
     protected $fillable = [
-        'id', 'full_name', 'email_id', 'email_verified_at', 'password', 'role_id', 'status', 'remember_token', 'created_by', 'created_at', 'updated_by', 'updated_at'
+        'id', 'full_name', 'email_id', 'phone_1','gender','email_verified_at', 'password', 'role_id', 'status', 
+        'remember_token', 'created_by', 'created_at', 'updated_by', 'updated_at'
       ];
 
     /**
@@ -59,7 +60,8 @@ class User extends Authenticatable
 
     public function getSaveData() {
         return array(
-           'id', 'full_name', 'email_id', 'email_verified_at', 'password', 'role_id', 'status', 'remember_token', 'created_by', 'created_at', 'updated_by', 'updated_at'
+                   'id', 'full_name', 'email_id', 'phone_1','gender','email_verified_at', 'password', 'role_id', 'status', 
+        'remember_token', 'created_by', 'created_at', 'updated_by', 'updated_at'
         );
     }
 
@@ -126,33 +128,16 @@ class User extends Authenticatable
 
     static function details($param = []){
         $query = DB::table('users as u');
-        $query->leftjoin('user_level as ul','u.level_id','=','ul.id');
-        $query->leftjoin('users_roles as ur','u.role_id','=','ur.id');
-        $query->join('district as dm','u.district_id','=','dm.id');
-        $query->join('pin_location_master as l','u.location_id','=','l.id');
+        $query->leftjoin('roles as ur','u.role_id','=','ur.id');
         $query->leftjoin('users as u1','u.created_by','=','u1.id');
         $query->leftjoin('users as u2','u2.updated_by','=','u2.id');
         $query->select(DB::raw("u.id,
         ur.role_name,
         u.full_name,
         u.email_id ,
-        u.phone_1,
         u.password,
-        u.level_id,
-        u.dob,
-        u.doa,
-        u.last_passChanged_dt,
         u.status,
-        ul.level_name,
-        l.location_name,
-        dm.district_name,
-        u.latitude,u.longitude,
-        u.aadhar_card_no,u.pan_card_no,
-        u.address,u.about_me,
         date_format(u.created_at,'%d-%m-%Y') as created_at,
-        case when u.status = 0 then 'Inactive' when u.status = 1 then 'Active' end as status_name,
-        case when u.gender = 1 then 'Male' when u.gender = 2 then 'Female' when u.gender = 3 then 'Other' end as gender,
-        case when u.marital_status = 1 then 'Married' when u.marital_status = 2 then 'Unmarried' end as marital_status,
         ifnull(u1.full_name,'') as created_by,
         ifnull(date_format(u1.created_at,'%d-%m-%Y %h:%m %p'),'') as created_at,
         ifnull(u2.full_name,'') as updated_by,
@@ -168,17 +153,8 @@ class User extends Authenticatable
         if(isset($param['email_id']) && !empty($param['email_id'])){
              $query->where('email_id','like','%'.$param['email_id'].'%');
         }
-        if(!empty($param['level_id'])){
-            $query->where('u.level_id',$param['level_id']);
-        }
         if(!empty($param['role_id'])){
             $query->where('u.role_id',$param['role_id']);
-        }
-        if(isset($param['location_id']) && !empty($param['location_id'])){
-            $query->where('u.location_id','like',$param['location_id']); 
-        }
-        if(isset($param['district_id']) && !empty($param['district_id'])){
-            $query->where('u.district_id','like',$param['district_id']); 
         }
          $total_count = $query->count();
          if(isset($param['limit']) && isset($param['offset'])){

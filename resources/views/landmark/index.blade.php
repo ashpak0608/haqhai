@@ -6,10 +6,10 @@
     <div id="kt_app_toolbar_container" class="container-fluid d-flex align-items-stretch">
         <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
             <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
-                <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Area</h1>
+                <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">{{$permissions['sub_module_name']}}</h1>
             </div>
             <div class="d-flex align-items-center gap-2 gap-lg-3">
-                <a href="<?php echo url('areas/add/');?>" class="btn btn-flex btn-outline btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold"><i class="ki-outline ki-plus fs-2"></i>Add</a>
+                <a href="<?php echo url('landmark/add/');?>" class="btn btn-flex btn-outline btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold"><i class="ki-outline ki-plus fs-2"></i>Add</a>
             </div>
         </div>
     </div>
@@ -23,27 +23,27 @@
             <form id="search_from" name="search_from" class="form fv-plugins-bootstrap5 fv-plugins-framework">
                 <div class="row">
                     <div class="col-md-4">
-                        <label class="fs-6 fw-semibold mb-1 ms-1">Location</label>
-                        <select id="district_id" name="district_id" class="form-select form-select-solid form-select" aria-label="Select" data-control="select2" data-placeholder="Select">
+                        <label class="fs-6 fw-semibold mb-1 ms-1">Area</label>
+                        <select id="area_id" name="area_id" class="form-select form-select-solid form-select" aria-label="Select" data-control="select2" data-placeholder="Select" required>
                             <option></option>
-                            @foreach($locations as $location)
-                                <option value="{{ $location->id }}">{{ $location->location_name }}</option>
+                            @foreach($areas as $area)
+                                <option value="{{ $area->id }}">{{ $area->area_name }}</option>
                             @endforeach
                         </select>
-                        <span class="error" id="location_id_error"></span>
+                        <span class="error" id="area_id_error"></span>
                     </div>
                     <div class="col-md-4">
-                        <label class="fs-6 fw-semibold mb-1 ms-1">Area Name</label>
-                        <input type="text" id="area_name" name="area_name" class="form-control form-control-solid" />
-                        <span class="error" id="area_name_error"></span>
+                        <label class="fs-6 fw-semibold mb-1 ms-1">Landmark Name</label>
+                        <input type="text" id="landmark_name" name="landmark_name" class="form-control form-control-solid" />
+                        <span class="error" id="landmark_name_error"></span>
                     </div>
                 </div>
                 <hr>
                 <div>
-                    <button type="button" id="search" name="search_button" class="btn btn-sm btn-primary">
+                    <button type="button" id="search" name="search" class="btn btn-sm btn-primary">
                         <i class="ki-outline ki-filter-search"></i><span class="indicator-label">Search</span>
                     </button>
-                    <button type="button" id="search_display_processing" name="display_processing" class="btn btn-sm btn-primary" style="display:none">
+                    <button type="button" id="search_display_processing" name="search_display_processing" class="btn btn-sm btn-primary" style="display:none">
                         <span class="spinner-border spinner-border-sm align-middle"></span></span>
                         <span class="indicator-label ms-2">Please wait... 
                     </button>
@@ -82,7 +82,7 @@
                     <tr class="text-start text-muted fw-bold fs-7 gs-0">
                         <th>Sr. No.</th>
                         <th>Area</th>
-                        <th>Location Name</th>
+                        <th>landmark Name</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -92,7 +92,7 @@
                     <tr>
                         <td>{{$key+1}}</td>
                         <td>{{$list->area_name}}</td>
-                        <td>{{$list->location_name}}</td>
+                        <td>{{$list->landmark_name}}</td>
                         <td>
                             <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
                                 <input type="checkbox" id="status" name="status" class="form-check-input" 
@@ -102,12 +102,12 @@
                             </label>
                         </td>
                         <td>
-                            <a href="<?php echo url('areas/add/'.$list->id);?>" class="btn btn-icon btn-active-light-info w-30px h-30px me-3"><i class="ki-outline ki-pencil text-info fs-3"></i></a>
-                            <a href="<?php echo url('areas/view/'.$list->id);?>" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3"><i class="ki-outline ki-eye text-primary fs-3"></i></a>
+                            <a href="<?php echo url('landmark/add/'.$list->id);?>" class="btn btn-icon btn-active-light-info w-30px h-30px me-3"><i class="ki-outline ki-pencil text-info fs-3"></i></a>
+                            <a href="<?php echo url('landmark/view/'.$list->id);?>" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3"><i class="ki-outline ki-eye text-primary fs-3"></i></a>
                             <!-- <a class="btn btn-icon btn-active-light-danger w-30px h-30px delete-record"><i class="ki-outline ki-trash text-danger fs-3"></i></a> -->
                         </td>
                     </tr>
-                @endforeach
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -158,6 +158,6 @@
 </div>
 <!--end::Card-->
 
-<script src="{{ url('public/validation/area.js') }}"></script>
+<script src="{{ url('public/validation/landmark.js') }}"></script>
 
 @endsection

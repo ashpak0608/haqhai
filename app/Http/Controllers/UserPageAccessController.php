@@ -28,7 +28,7 @@ class UserPageAccessController extends Controller {
             if($lists['total_count'] > 0){
                 $data['lists'] = $lists['data'];
             }
-            $data['roles'] = CommonModel::getSingle('users_roles', ['status' => 0]);
+            $data['roles'] = CommonModel::getSingle('roles', ['status' => 0]);
             return view('user_page_access.index',$data);
         }catch(Throwable $e){
             $returnData = array('status' => 'warning', 'message' => $e->getMessage());
@@ -71,7 +71,7 @@ class UserPageAccessController extends Controller {
             }
             $param=['status' => 0];
             $data['subModules'] = SubModuleModel::getAllSubModuleDetails($param);
-            $data['roles'] = CommonModel::getSingle('users_roles', ['status' => 0]);
+            $data['roles'] = CommonModel::getSingle('roles', ['status' => 0]);
             return view('user_page_access.add',$data);
         }catch(Throwable $e){
             $returnData = array('status' => 'warning', 'message' => $e->getMessage());

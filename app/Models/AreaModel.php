@@ -14,12 +14,12 @@ class AreaModel extends Model
     protected $table = 'areas';
 
     protected $fillable = [
-        'id','district_id', 'location_id', 'area_name', 'status', 'created_by', 'created_at', 'updated_by', 'updated_at'
+        'id','location_id', 'area_name', 'status', 'created_by', 'created_at', 'updated_by', 'updated_at'
     ];
 
     public function getSaveData() {
         return array(
-            'id','district_id', 'location_id', 'area_name', 'status', 'created_by', 'created_at', 'updated_by', 'updated_at'
+            'id','location_id', 'area_name', 'status', 'created_by', 'created_at', 'updated_by', 'updated_at'
         );
     }
 
@@ -44,7 +44,7 @@ class AreaModel extends Model
             $finalData['updated_at'] = null;
             $finalData->save();
             $id = $finalData->id;
-            return array('id' => $id, 'status' => 'success', 'message' => "Pin Location Data saved!");
+            return array('id' => $id, 'status' => 'success', 'message' => "Area Data saved!");
         } else {
             if ($this->getSingleData($id)) {
                 $finalData['updated_at'] = date("Y-m-d H:i:s");
@@ -52,7 +52,7 @@ class AreaModel extends Model
                 $finalData->exists = true;
                 $finalData->id = $id;
                 $finalData->save();
-                return array('id' => $id, 'status' => 'success', 'message' => "Pin Location Data updated!");
+                return array('id' => $id, 'status' => 'success', 'message' => "Area Data updated!");
             } else {
                 return false;
             }
@@ -73,15 +73,11 @@ class AreaModel extends Model
        $query = DB::table('areas as a');
        $query->leftjoin('users as u','a.created_by','=','u.id');
        $query->leftjoin('users as u1','a.updated_by','=','u1.id');
-       $query->join('district as d','a.district_id','=','d.id');
-       $query->join('pin_location_master as l','a.location_id','=','l.id');
+       $query->join('locations as l','a.location_id','=','l.id');
        $query->select(DB::raw("
         a.id,
         a.area_name,
-        l.pincode,
-        a.district_id ,
         a.status,
-        d.district_name,
         l.location_name,
         ifnull(a.area_name,'') as area_name,
         ifnull(u.full_name,'') as created_by,
@@ -96,9 +92,6 @@ class AreaModel extends Model
         }
         if(isset($param['area_name']) && !empty($param['area_name'])){
             $query->where('a.area_name','like','%'.$param['area_name'].'%'); 
-        }
-        if(!empty($param['district_id'])){
-            $query->where('a.district_id',$param['district_id']);
         }
         if(!empty($param['location_id'])){
             $query->where('a.location_id',$param['location_id']);

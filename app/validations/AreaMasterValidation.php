@@ -7,7 +7,6 @@ class AreaMasterValidation
     public function validate(array $data)
     {
         $validator = Validator::make($data, [
-            'district_id' => 'required',
             'location_id' => 'required',
             'area_name' => 'required',
         ]);

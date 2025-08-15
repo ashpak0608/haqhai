@@ -72,15 +72,11 @@ class UserController extends Controller {
                 $data['id'] = $id;
                 $objUser = new User();
                 $data['singleData'] = $objUser->getSingleData($id);
-                $district_id = $data['singleData']['district_id'];
-                $data['locations'] = CommonModel::getSingle('pin_location_master', ['district_id' => $district_id,'status' => 0]);
             }
             else {
                 $data['singleData'] = array();
             }
-            $data['districts'] = CommonModel::getSingle('district', ['status' => 0]);
-            $data['userLevels'] = CommonModel::getSingle('user_level', ['status' => 0]);
-            $data['roles'] = CommonModel::getSingle('users_roles', ['status' => 0]);
+            $data['roles'] = CommonModel::getSingle('roles', ['status' => 0]);
             return view('user.add',$data);
         }catch(\Throwable $e){
             $returnData = array('status' => 'warning', 'message' => $e->getMessage());

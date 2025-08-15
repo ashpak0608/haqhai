@@ -7,32 +7,32 @@ use DB;
 use Session;
 use App\Models\CommonModel;
 use Illuminate\Http\Request;
-use App\Models\LocationMasterModel;
-use App\validations\LocationMasterValidation;
+use App\Models\LandmarkMasterModel;
+use App\validations\LandmarkMasterValidation;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 
-class LocationController extends Controller {
+class LandmarkController extends Controller {
 
-    protected $table = 'locations';
+    protected $table = 'landmarks';
     
     function index() {
         try{
-            $data['title'] = "Location || HAQHAI";
-            $data['cities'] = CommonModel::getSingle('cities', ['status' => 0]);
+            $data['title'] = "Landmark || HAQHAI";
+            $data['areas'] = CommonModel::getSingle('areas', ['status' => 0]);
             $param=array(
                 'start' => 0,
                 'limit' => 10,
             );
-            $lists = LocationMasterModel::getAllPinLocationDetails($param);
+            $lists = LandmarkMasterModel::getAllLandmarkDetails($param);
             $data['lists'] = array();
             $data['total_count'] = 0;
             if($lists['total_count'] > 0){
                 $data['lists'] = $lists['data'];
                 $data['total_count'] = $lists['total_count'];
             }
-            return view('location.index',$data);
+            return view('landmark.index',$data);
         }
         catch(\Throwable $e){
             $returnData = array('status' => 'warning', 'message' => $e->getMessage());
@@ -47,10 +47,10 @@ class LocationController extends Controller {
             $param['start'] = $request->start;
             $param['limit'] = $request->limit;
             $param['location_name'] = $request->location_name;
-            $param['city_id'] = $request->city_id;
+            $param['area_id'] = $request->area_id;
             $param['status'] = $request->status;
-            $objLocationMasterModel = new LocationMasterModel;
-            $lists = $objLocationMasterModel->getAllPinLocationDetails($param);
+            $objLandmarkMasterModel = new LandmarkMasterModel;
+            $lists = $objLandmarkMasterModel->getAllLandmarkDetails($param);
             $data['total_count'] = $lists['total_count'];
             $data['lists'] = array();
             $data['message'] = "No record found!";
@@ -72,14 +72,14 @@ class LocationController extends Controller {
             $data['title'] = "Location - Add || HAQHAI";
             if($id != null) {
                 $data['id'] = $id;
-                $objLocationMasterModel = new LocationMasterModel();
-                $data['singleData'] = $objLocationMasterModel->getSingleData($id);
+                $objLandmarkMasterModel = new LandmarkMasterModel();
+                $data['singleData'] = $objLandmarkMasterModel->getSingleData($id);
             }
             else {
                 $data['singleData'] = array();
             }
-            $data['districts'] = CommonModel::getSingle('district', ['status' => 0]);
-            return view('location.add',$data);
+            $data['areas'] = CommonModel::getSingle('areas', ['status' => 0]);
+            return view('landmark.add',$data);
         }
         catch(\Throwable $e){
             $returnData = array('status' => 'warning', 'message' => $e->getMessage());
@@ -89,11 +89,11 @@ class LocationController extends Controller {
 
     function view($id) {
         try{
-            $data['title'] = "Location - View || HAQHAI";
+            $data['title'] = "Landmark - View || HAQHAI";
             $param = array('id' => $id);
-            $viewLists = LocationMasterModel::getAllPinLocationDetails($param);
+            $viewLists = LandmarkMasterModel::getAllLandmarkDetails($param);
             $data['views'] = $viewLists['data'][0];
-            return view('location.view',$data);
+            return view('landmark.view',$data);
         }
         catch(\Throwable $e){
             $returnData = array('status' => 'warning', 'message' => $e->getMessage());
@@ -104,25 +104,24 @@ class LocationController extends Controller {
     function save(Request $request) {
         try{
             $returnData = array();
-            $LocationMasterValidation = new LocationMasterValidation();
-            $validationResult = $LocationMasterValidation->validate($request->all());
+            $LandmarkMasterValidation = new LandmarkMasterValidation();
+            $validationResult = $LandmarkMasterValidation->validate($request->all());
             if ($validationResult !== null) {
                 return json_encode($validationResult);
             }
             $objCommon = new CommonModel();
             $uniqueFieldValue = [
-                "location_name" => $request->location_name,
-                "city_id" => $request->city_id,
-                "pincode" => $request->pincode,
+                "landmark_name" => $request->landmark_name,
+                "area_id" => $request->area_id,
             ];
             $uniqueCount = $objCommon->checkMultiUnique($this->table,$uniqueFieldValue,$request["id"]);
             if ($uniqueCount > 0) {
-                $returnData = ["status" => "exist","message" => "Location Name , District  and Pincode  already exists!","unique_field" => $uniqueFieldValue];
+                $returnData = ["status" => "exist","message" => "Landmark Name and Area Name already exists!","unique_field" => $uniqueFieldValue];
                 return json_encode($returnData);
             }
-            $objLocationMasterModel = new LocationMasterModel();
+            $objLandmarkMasterModel = new LandmarkMasterModel();
             $post = $request->all();
-            $returnData = $objLocationMasterModel->saveData($post);
+            $returnData = $objLandmarkMasterModel->saveData($post);
             return json_encode($returnData);
         }
         catch(\Throwable $e){
@@ -136,8 +135,8 @@ class LocationController extends Controller {
             $id = (int) $id;
             $status = (int)$status === 0 ? 1 : 0;
             $data = array('status' => $status , 'id' => $id);
-            $objLocationMasterModel = new LocationMasterModel;
-            $returnData = $objLocationMasterModel->saveData($data);
+            $objLandmarkMasterModel = new LandmarkMasterModel;
+            $returnData = $objLandmarkMasterModel->saveData($data);
             return json_encode($returnData);
         }catch(Throwable $e){
             $returnData = array('status' => 'warning', 'message' => $e->getMessage());

@@ -2,12 +2,13 @@
 namespace App\Validations;
 use Illuminate\Support\Facades\Validator;
 
-class BedroomMasterValidation
+class PinLocationMasterValidation
 {
     public function validate(array $data)
     {
         $validator = Validator::make($data, [
-            'bedroom_nos' => 'required',
+            'location_name' => 'required',
+            'city_id' => 'required',
         ]);
 
         if ($validator->fails()) {

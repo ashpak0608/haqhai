@@ -7,22 +7,23 @@ use Session;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class AroundPropertyAmenityMasterModel extends Model
+class LandmarkMasterModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'around_property_amenity_master';
+    protected $table = 'landmarks';
 
     protected $fillable = [
-        'id', 'around_amenity_name','status', 'created_by', 'created_at', 'updated_by', 'updated_at'];
+        'id','landmark_name',  'area_id', 'status', 'created_by', 'created_at', 'updated_by', 'updated_at'
+    ];
 
     public function getSaveData() {
-        return array('id', 'around_amenity_name','status', 'created_by', 'created_at', 'updated_by', 'updated_at');
+        return array('id','landmark_name', 'area_id', 'status', 'created_by', 'created_at', 'updated_by', 'updated_at');
     }
 
     public function saveData($post) {
         $saveFields = $this->getSaveData();
-        $finalData = new AroundPropertyAmenityMasterModel;
+        $finalData = new LandmarkMasterModel;
         foreach ($post as $k => $v) {
             if (in_array($k, $saveFields)) {
                 $finalData[$k] = $v;
@@ -41,7 +42,7 @@ class AroundPropertyAmenityMasterModel extends Model
             $finalData['updated_at'] = null;
             $finalData->save();
             $id = $finalData->id;
-            return array('id' => $id, 'status' => 'success', 'message' => "Around Property Amenity Data saved!");
+            return array('id' => $id, 'status' => 'success', 'message' => "Landmark Data saved!");
         } else {
             if ($this->getSingleData($id)) {
                 $finalData['updated_at'] = date("Y-m-d H:i:s");
@@ -49,7 +50,7 @@ class AroundPropertyAmenityMasterModel extends Model
                 $finalData->exists = true;
                 $finalData->id = $id;
                 $finalData->save();
-                return array('id' => $id, 'status' => 'success', 'message' => "Around Property Amenity Data updated!");
+                return array('id' => $id, 'status' => 'success', 'message' => "Landmark Data updated!");
             } else {
                 return false;
             }
@@ -66,14 +67,17 @@ class AroundPropertyAmenityMasterModel extends Model
         return false;
     }
 
-    static function getAllAroundPropertyAmenityDetails($param = []){
-       $query = DB::table('around_property_amenity_master as c');
+    static function getAllLandmarkDetails($param = []){
+       $query = DB::table('landmarks as c');
        $query->leftjoin('users as u','c.created_by','=','u.id');
        $query->leftjoin('users as u1','c.updated_by','=','u1.id');
+       $query->join('areas as d','c.area_id','=','d.id');
        $query->select(DB::raw("
         c.id,
-        c.around_amenity_name,
+        c.area_id ,
         c.status,
+        c.landmark_name,
+        d.area_name,
         ifnull(u.full_name,'') as created_by,
         ifnull(date_format(c.created_at,'%d-%m-%Y %h:%m %p'),'') as created_at,
         ifnull(u1.full_name,'') as updated_by,
@@ -81,17 +85,20 @@ class AroundPropertyAmenityMasterModel extends Model
         if(isset($param['status']) && (in_array($param['status'],[0,1]))){
             $query->where('c.status',$param['status']);
         }
-        if(isset($param['id']) && !empty($param['id'])){
-            $query->where('c.id',$param['id']); 
+        if(!empty($param['id'])){
+            $query->where('c.id',$param['id']);
         }
-        if(isset($param['around_amenity_name']) && !empty($param['around_amenity_name'])){
-            $query->where('c.around_amenity_name','like','%'.$param['around_amenity_name'].'%'); 
+        if(isset($param['landmark_name']) && !empty($param['landmark_name'])){
+            $query->where('c.landmark_name','like','%'.$param['landmark_name'].'%'); 
+        }
+        if(!empty($param['area_id'])){
+            $query->where('c.area_id',$param['area_id']);
         }
         $total_count = $query->count();
         if(isset($param['limit']) && isset($param['start'])){
             $query->limit($param['limit'])->offset($param['start']);
         }
-        $query->orderBy('c.id','desc');
+        $query->orderBy('c.landmark_name','asc');
         $result = $query->get();
         if($total_count > 0){
             return array('total_count'=>$total_count,'data'=>$result);

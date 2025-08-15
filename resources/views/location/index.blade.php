@@ -23,14 +23,14 @@
             <form id="search_from" name="search_from" class="form fv-plugins-bootstrap5 fv-plugins-framework">
                 <div class="row">
                     <div class="col-md-4">
-                        <label class="fs-6 fw-semibold mb-1 ms-1">District</label>
-                        <select id="district_id" name="district_id" class="form-select form-select-solid form-select" aria-label="Select" data-control="select2" data-placeholder="Select">
+                        <label class="fs-6 fw-semibold mb-1 ms-1">City</label>
+                        <select id="city_id" name="city_id" class="form-select form-select-solid form-select" aria-label="Select" data-control="select2" data-placeholder="Select">
                             <option></option>
-                            @foreach($districts as $district)
-                                <option value="{{ $district->id }}">{{ $district->district_name }}</option>
+                            @foreach($cities as $city)
+                                <option value="{{ $city->id }}">{{ $city->city_name }}</option>
                             @endforeach
                         </select>
-                        <span class="error" id="district_id_error"></span>
+                        <span class="error" id="city_id_error"></span>
                     </div>
                     <div class="col-md-4">
                         <label class="fs-6 fw-semibold mb-1 ms-1">Location Name</label>
@@ -81,8 +81,7 @@
                 <thead>
                     <tr class="text-start text-muted fw-bold fs-7 gs-0">
                         <th>Sr. No.</th>
-                        <th>Pincode</th>
-                        <th>District</th>
+                        <th>City Name</th>
                         <th>Location Name</th>
                         <th>Status</th>
                         <th>Action</th>
@@ -92,8 +91,7 @@
                 @foreach($lists as $key => $list)
                     <tr>
                         <td>{{$key+1}}</td>
-                        <td>{{$list->pincode}}</td>
-                        <td>{{$list->district_name}}</td>
+                        <td>{{$list->city_name}}</td>
                         <td>{{$list->location_name}}</td>
                         <td>
                             <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
@@ -160,6 +158,6 @@
 </div>
 <!--end::Card-->
 
-<script src="{{ url('public/validation/pin_location_master.js') }}"></script>
+<script src="{{ url('public/validation/location.js') }}"></script>
 
 @endsection
