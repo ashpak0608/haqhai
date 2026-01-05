@@ -22,7 +22,7 @@ class LoginController extends Controller {
 		try{
 			$returnData = array();
 			$validator = Validator::make($request->all(), ([
-				'email_id' => 'required',
+				'phone_1' => 'required',
 				'password' => 'required',
 			]));
 
@@ -30,7 +30,7 @@ class LoginController extends Controller {
 				$returnData = array('status' => 'error', 'message' => $validator->errors());
 				return json_encode($returnData);
 			}
-			$arry['email_id'] = $request['email_id'];
+			$arry['phone_1'] = $request['phone_1'];
 			$arry['password'] = $request['password'];
 			$arry['status'] = 0;
 			$objUser = New User();
@@ -52,7 +52,7 @@ class LoginController extends Controller {
 				}
 			}
 			else {
-				$returnData = array('status' => 'warning', 'message' => 'Invalid Email/password entered.Please try again.');
+				$returnData = array('status' => 'warning', 'message' => 'Invalid phone number/password entered.Please try again.');
 				return json_encode($returnData);
 			}
 		}catch(\Throwable $e){

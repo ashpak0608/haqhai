@@ -1,6 +1,36 @@
 @extends('layouts.app')
 @section('contant')
 
+<!-- Flash message -->
+@if(session('message'))
+    @php
+        $alertType = session('status') === 'success' ? 'alert-success' : 
+                    (session('status') === 'exist' ? 'alert-warning' : 'alert-danger');
+        $icon = session('status') === 'success' ? 'ki-check-circle' : 
+               (session('status') === 'exist' ? 'ki-information' : 'ki-cross-circle');
+    @endphp
+    <div class="container mt-3 flash-message">
+        <div class="alert {{ $alertType }} alert-dismissible fade show d-flex align-items-center" role="alert">
+            <i class="ki-outline {{ $icon }} fs-2hx me-3"></i>
+            <div class="d-flex flex-column">
+                <strong>{{ session('status') === 'success' ? 'Success!' : (session('status') === 'exist' ? 'Warning!' : 'Error!') }}</strong>
+                <span>{{ session('message') }}</span>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                const flashMessage = document.querySelector('.flash-message');
+                if (flashMessage) {
+                    flashMessage.remove();
+                }
+            }, 3000);
+        });
+    </script>
+@endif
 <!--begin::Toolbar-->
 <div id="kt_app_toolbar" class="app-toolbar mb-4">
     <div id="kt_app_toolbar_container" class="container-fluid d-flex align-items-stretch">

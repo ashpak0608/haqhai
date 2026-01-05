@@ -14,12 +14,20 @@ class WardModel extends Model
     protected $table = 'wards';
 
     protected $fillable = [
-        'id','city_id', 'ward_name', 'ward_number','status', 'created_by', 'created_at', 'updated_by', 'updated_at'
+        'id','city_id', 'ward_name', 'ward_number','status', 'created_by', 'created_at', 'updated_by', 'updated_at',
+        'boundary_data', 'center_lat', 'center_lng' // Added for hierarchical maps
+    ];
+
+    protected $casts = [
+        'center_lat' => 'decimal:8',
+        'center_lng' => 'decimal:8',
+        'boundary_data' => 'array'
     ];
 
     public function getSaveData() {
         return array(
-            'id','city_id', 'ward_name', 'ward_number','status', 'created_by', 'created_at', 'updated_by', 'updated_at'
+            'id','city_id', 'ward_name', 'ward_number','status', 'created_by', 'created_at', 'updated_by', 'updated_at',
+            'boundary_data', 'center_lat', 'center_lng'
         );
     }
 
@@ -31,6 +39,15 @@ class WardModel extends Model
                 $finalData[$k] = $v;
             }
         }
+        
+        // Convert empty strings to null for coordinates
+        if (isset($finalData['center_lat']) && $finalData['center_lat'] === '') {
+            $finalData['center_lat'] = null;
+        }
+        if (isset($finalData['center_lng']) && $finalData['center_lng'] === '') {
+            $finalData['center_lng'] = null;
+        }
+
         if (isset($finalData['id'])) {
             $id = (int) $finalData['id'];
         } else {
@@ -80,6 +97,9 @@ class WardModel extends Model
         c.ward_number,
         c.city_id,
         c.status,
+        c.boundary_data,
+        c.center_lat,
+        c.center_lng,
         d.city_name,
         ifnull(u.full_name,'') as created_by,
         ifnull(date_format(c.created_at,'%d-%m-%Y %h:%m %p'),'') as created_at,
@@ -108,5 +128,36 @@ class WardModel extends Model
         }else{
             return array('total_count'=>0,'data'=>[]);
         }
+    }
+
+    // Relationship with Buildings
+    public function buildings()
+    {
+        return $this->hasMany(BuildingModel::class, 'ward_id');
+    }
+
+    // Relationship with Google Maps drawings
+    public function mapDrawings()
+    {
+        return $this->morphMany(GoogleMap::class, 'module', 'module_name', 'module_id');
+    }
+
+    public function getDefaultMapDrawing()
+    {
+        return $this->mapDrawings()
+                    ->where('is_default', true)
+                    ->where('status', 'active')
+                    ->first();
+    }
+
+    public function hasBoundary()
+    {
+        return !empty($this->boundary_data);
+    }
+
+    // Get city for this ward
+    public function city()
+    {
+        return $this->belongsTo(CityModel::class, 'city_id');
     }
 }

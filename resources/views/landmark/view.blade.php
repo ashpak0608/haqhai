@@ -21,17 +21,36 @@
     <div class="card-body pt-4 pb-0">
         <div class="d-row row-wrap row-sm-nowrap pb-4">
             <form id="view_from" name="view_from" class="form fv-plugins-bootstrap5 fv-plugins-framework">
+                @if(isset($view) && $view)
                 <div class="row">
                     <label class="col-lg-4 fw-semibold text-muted">Area Name</label>
                     <div class="col-lg-8">
-                        <span class="fw-bold fs-6 text-gray-800">{{ isset($views->area_name) ? $views->area_name : '' }}</span>
+                        <span class="fw-bold fs-6 text-gray-800">{{ $view->area_name ?? '' }}</span>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <label class="col-lg-4 fw-semibold text-muted">City Name</label>
+                    <div class="col-lg-8">
+                        <span class="fw-bold fs-6 text-gray-800">{{ $view->city_name ?? 'N/A' }}</span>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <label class="col-lg-4 fw-semibold text-muted">Ward Name</label>
+                    <div class="col-lg-8">
+                        @if(isset($view->ward_name) && !empty($view->ward_name))
+                            <span class="fw-bold fs-6 text-gray-800">{{ $view->ward_name }}</span>
+                        @else
+                            <span class="fw-bold fs-6 text-gray-800 text-muted">Not assigned</span>
+                        @endif
                     </div>
                 </div>
                 <hr>
                 <div class="row">
                     <label class="col-lg-4 fw-semibold text-muted">Landmark Name</label>
                     <div class="col-lg-8">
-                        <span class="fw-bold fs-6 text-gray-800">{{ isset($views->landmark_name) ? $views->landmark_name : '' }}</span>
+                        <span class="fw-bold fs-6 text-gray-800">{{ $view->landmark_name ?? '' }}</span>
                     </div>
                 </div>
                 <hr>
@@ -39,7 +58,7 @@
                     <label class="col-lg-4 fw-semibold text-muted">Status</label>
                     <div class="col-lg-8 fv-row">
                         <span class="fw-semibold text-gray-800 fs-6">
-                            @if($views->status == '0')
+                            @if(isset($view->status) && $view->status == '0')
                             <span class="badge badge-light-success fs-7 fw-bold">Active</span>
                             @else
                             <span class="badge badge-light-danger fs-7 fw-bold">Inactive</span>
@@ -51,30 +70,37 @@
                 <div class="row">
                     <label class="col-lg-4 fw-semibold text-muted">Created By</label>
                     <div class="col-lg-8">
-                        <span class="fw-bold fs-6 text-gray-800">{{ isset($views->created_by) ? $views->created_by : '' }}</span>
+                        <span class="fw-bold fs-6 text-gray-800">{{ $view->created_by ?? 'N/A' }}</span>
                     </div>
                 </div>
                 <hr>
                 <div class="row">
                     <label class="col-lg-4 fw-semibold text-muted">Created At</label>
                     <div class="col-lg-8">
-                        <span class="fw-bold fs-6 text-gray-800">{{ isset($views->created_at) ? $views->created_at : '' }}</span>
+                        <span class="fw-bold fs-6 text-gray-800">{{ $view->created_at ?? 'N/A' }}</span>
                     </div>
                 </div>
                 <hr>
                 <div class="row">
                     <label class="col-lg-4 fw-semibold text-muted">Modified By</label>
                     <div class="col-lg-8">
-                        <span class="fw-bold fs-6 text-gray-800">{{ isset($views->updated_by) ? $views->updated_by : '' }}</span>
+                        <span class="fw-bold fs-6 text-gray-800">{{ $view->updated_by ?? 'N/A' }}</span>
                     </div>
                 </div>
                 <hr>
                 <div class="row">
                     <label class="col-lg-4 fw-semibold text-muted">Modified At</label>
                     <div class="col-lg-8">
-                        <span class="fw-bold fs-6 text-gray-800">{{ isset($views->updated_at) ? $views->updated_at : '' }}</span>
+                        <span class="fw-bold fs-6 text-gray-800">{{ $view->updated_at ?? 'N/A' }}</span>
                     </div>
                 </div>
+                @else
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <label class="text-danger mt-2 mb-2">Landmark not found.</label>
+                    </div>
+                </div>
+                @endif
             </form>
         </div>
     </div>

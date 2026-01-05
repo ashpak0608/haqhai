@@ -1,6 +1,37 @@
 @extends('layouts.app')
 @section('contant')
 
+<!-- Flash message -->
+@if(session('message'))
+    @php
+        $alertType = session('status') === 'success' ? 'alert-success' : 
+                    (session('status') === 'exist' ? 'alert-warning' : 'alert-danger');
+        $icon = session('status') === 'success' ? 'ki-check-circle' : 
+               (session('status') === 'exist' ? 'ki-information' : 'ki-cross-circle');
+    @endphp
+    <div class="container mt-3 flash-message">
+        <div class="alert {{ $alertType }} alert-dismissible fade show d-flex align-items-center" role="alert">
+            <i class="ki-outline {{ $icon }} fs-2hx me-3"></i>
+            <div class="d-flex flex-column">
+                <strong>{{ session('status') === 'success' ? 'Success!' : (session('status') === 'exist' ? 'Warning!' : 'Error!') }}</strong>
+                <span>{{ session('message') }}</span>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                const flashMessage = document.querySelector('.flash-message');
+                if (flashMessage) {
+                    flashMessage.remove();
+                }
+            }, 3000);
+        });
+    </script>
+@endif
+
 <!--begin::Toolbar-->
 <div id="kt_app_toolbar" class="app-toolbar mb-4">
     <div id="kt_app_toolbar_container" class="container-fluid d-flex align-items-stretch">
@@ -20,26 +51,31 @@
 <div class="card mb-4">
     <div class="card-body pt-4 pb-0">
         <div class="d-row row-wrap row-sm-nowrap pb-4">
-            <form id="pin_location_form" name="pin_location_form" method="post" class="form fv-plugins-bootstrap5 fv-plugins-framework">
-            @csrf
-            <input type="hidden" id="id" name="id" value="{{isset($singleData['id']) ? $singleData['id'] : ''}}"/>
+            <form id="location_form" name="location_form" method="POST" action="{{ route('location.save') }}" class="form fv-plugins-bootstrap5 fv-plugins-framework">
+                @csrf
+                <input type="hidden" id="id" name="id" value="{{isset($singleData['id']) ? $singleData['id'] : ''}}"/>
+                
                 <div class="row">
                     <div class="col-md-4">
-                        <label class="required fs-6 fw-semibold mb-1 ms-1">District</label>
-                        <select id="district_id" name="district_id" class="form-select form-select-solid form-select" aria-label="Select" data-control="select2" data-placeholder="Select" required >
-                            <option></option>
-                            @foreach($districts as $district)
-                                <option value="{{ $district->id }}" {{isset($singleData['district_id']) && $singleData['district_id'] == $district->id ? 'selected' : ''}}>{{ $district->district_name }}</option>
+                        <label class="required fs-6 fw-semibold mb-1 ms-1">City</label>
+                        <select id="city_id" name="city_id" class="form-select form-select-solid form-select" aria-label="Select" data-control="select2" data-placeholder="Select" required>
+                            <option value="">Select City</option>
+                            @foreach($cities as $city)
+                                <option value="{{ $city->id }}" {{isset($singleData['city_id']) && $singleData['city_id'] == $city->id ? 'selected' : (old('city_id') == $city->id ? 'selected' : '')}}>
+                                    {{ $city->city_name }}
+                                </option>
                             @endforeach
                         </select>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="required fs-6 fw-semibold mb-1 ms-1">Pincode</label>
-                        <input type="text" id="pincode" name="pincode" class="form-control form-control-solid allow_numeric" maxlength="6" value="{{isset($singleData['pincode']) ? $singleData['pincode'] : ''}}"/>
+                        @error('city_id')
+                            <div class="text-danger mt-1">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="col-md-4">
                         <label class="required fs-6 fw-semibold mb-1 ms-1">Location Name</label>
-                        <input type="text" id="location_name" name="location_name" class="form-control form-control-solid" value="{{isset($singleData['location_name']) ? $singleData['location_name'] : ''}}" />
+                        <input type="text" id="location_name" name="location_name" class="form-control form-control-solid" value="{{isset($singleData['location_name']) ? $singleData['location_name'] : old('location_name')}}" required />
+                        @error('location_name')
+                            <div class="text-danger mt-1">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
                 <hr>
@@ -48,14 +84,71 @@
                         <i class="ki-outline ki-save-2"></i><span class="indicator-label">Submit</span>
                     </button>
                     <button type="button" id="display_processing" name="display_processing" class="btn btn-sm btn-primary" style="display:none">
-                        <span class="spinner-border spinner-border-sm align-middle"></span></span>
-                        <span class="indicator-label ms-2">Please wait... 
+                        <span class="spinner-border spinner-border-sm align-middle"></span>
+                        <span class="indicator-label ms-2">Please wait...</span>
                     </button>
+                    <a href="{{ url('location') }}" class="btn btn-sm btn-secondary">Cancel</a>
                 </div>
             </form>
         </div>
     </div>
 </div>
 <!--end::Navbar-->
-<script src="{{ url('public/validation/pin_location_master.js') }}"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('location_form');
+    const submitBtn = document.getElementById('submit_button');
+    const processingBtn = document.getElementById('display_processing');
+
+    // Basic form validation
+    form.addEventListener('submit', function(e) {
+        // Simple required field validation
+        let isValid = true;
+        
+        // Validate city
+        if (!$('#city_id').val()) {
+            $('#city_id').addClass('is-invalid');
+            isValid = false;
+        } else {
+            $('#city_id').removeClass('is-invalid');
+        }
+        
+        // Validate location name
+        const locationName = $('#location_name').val().trim();
+        if (!locationName) {
+            $('#location_name').addClass('is-invalid');
+            isValid = false;
+        } else {
+            $('#location_name').removeClass('is-invalid');
+        }
+        
+        if (!isValid) {
+            e.preventDefault();
+            return false;
+        }
+        
+        // Show processing indicator
+        $('#submit_button').hide();
+        $('#display_processing').show();
+        
+        // Allow form to submit normally
+        return true;
+    });
+    
+    // Remove validation classes on input
+    $('#city_id, #location_name').on('input change', function() {
+        $(this).removeClass('is-invalid');
+    });
+    
+    // Auto-remove flash message after 3 seconds
+    setTimeout(() => {
+        const flashMessage = document.querySelector('.flash-message');
+        if (flashMessage) {
+            flashMessage.remove();
+        }
+    }, 3000);
+});
+</script>
+
 @endsection

@@ -111,11 +111,11 @@ class User extends Authenticatable
 
     function checkLoginDetails($data){
         $result = DB::table($this->table)
-            ->where('email_id', $data['email_id'])
+            ->where('phone_1', $data['phone_1'])
             ->where('status', $data['status'])
             ->first();    
         if (!$result || !Hash::check($data['password'], $result->password)) {
-            return ['status' => 'warning', 'message' => 'Email or password incorrect!'];
+            return ['status' => 'warning', 'message' => 'Phone number or password incorrect!'];
         }
         $access_permission = AccessPermissionModel::getSubModuleWithPermission($result->role_id);
         $array[0] = $result;
@@ -135,6 +135,7 @@ class User extends Authenticatable
         ur.role_name,
         u.full_name,
         u.email_id ,
+        u.phone_1,
         u.password,
         u.status,
         date_format(u.created_at,'%d-%m-%Y') as created_at,
@@ -152,6 +153,9 @@ class User extends Authenticatable
         }
         if(isset($param['email_id']) && !empty($param['email_id'])){
              $query->where('email_id','like','%'.$param['email_id'].'%');
+        }
+        if(isset($param['phone_1']) && !empty($param['phone_1'])){
+             $query->where('phone_1','like','%'.$param['phone_1'].'%');
         }
         if(!empty($param['role_id'])){
             $query->where('u.role_id',$param['role_id']);

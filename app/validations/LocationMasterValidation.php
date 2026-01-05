@@ -1,20 +1,27 @@
 <?php
-namespace App\Validations;
-use Illuminate\Support\Facades\Validator;
 
-class PinLocationMasterValidation
-{
-    public function validate(array $data)
-    {
-        $validator = Validator::make($data, [
-            'location_name' => 'required',
-            'city_id' => 'required',
-        ]);
+namespace App\validations;
 
-        if ($validator->fails()) {
-            return ['status' => 'error', 'message' => 'Validation Error', 'errors' => $validator->errors()];
+class LocationMasterValidation {
+    public function validate($data) {
+        $errors = [];
+
+        // Validate location name
+        if (empty($data['location_name'])) {
+            $errors['location_name'] = 'Location name is required.';
+        } elseif (strlen($data['location_name']) > 500) {
+            $errors['location_name'] = 'Location name must not exceed 500 characters.';
         }
 
-        return null; // Validation passed
+        // Validate city
+        if (empty($data['city_id'])) {
+            $errors['city_id'] = 'City is required.';
+        }
+
+        if (!empty($errors)) {
+            return ['status' => 'error', 'errors' => $errors];
+        }
+
+        return null;
     }
 }

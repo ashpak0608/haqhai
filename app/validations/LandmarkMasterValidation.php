@@ -1,20 +1,29 @@
 <?php
-namespace App\Validations;
-use Illuminate\Support\Facades\Validator;
+
+namespace App\validations;
 
 class LandmarkMasterValidation
 {
-    public function validate(array $data)
+    public function validate($data)
     {
-        $validator = Validator::make($data, [
-            'landmark_name' => 'required',
+        $rules = [
             'area_id' => 'required',
-        ]);
+            'city_id' => 'required',
+            'landmark_name' => 'required|string|max:255',
+        ];
+
+        $messages = [
+            'area_id.required' => 'Area is required',
+            'city_id.required' => 'City is required',
+            'landmark_name.required' => 'Landmark name is required',
+        ];
+
+        $validator = \Validator::make($data, $rules, $messages);
 
         if ($validator->fails()) {
-            return ['status' => 'error', 'message' => 'Validation Error', 'errors' => $validator->errors()];
+            return ['status' => 'warning', 'message' => $validator->errors()->first()];
         }
 
-        return null; // Validation passed
+        return null;
     }
 }

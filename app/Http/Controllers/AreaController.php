@@ -10,8 +10,6 @@ use Illuminate\Http\Request;
 use App\Models\LocationMasterModel;
 use App\Models\AreaModel;
 use App\validations\AreaMasterValidation;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 
 class AreaController extends Controller {
@@ -21,7 +19,13 @@ class AreaController extends Controller {
     function index() {
         try{
             $data['title'] = "Area || HAQHAI";
-            $data['locations'] = CommonModel::getSingle('locations', ['status' => 0]);
+            
+            // Get only non-deleted locations
+            $data['locations'] = DB::table('locations')
+                ->where('status', 0)
+                ->whereNull('deleted_at')
+                ->get();
+                
             $param=array(
                 'start' => 0,
                 'limit' => 10,
@@ -37,7 +41,7 @@ class AreaController extends Controller {
         }
         catch(\Throwable $e){
             $returnData = array('status' => 'warning', 'message' => $e->getMessage());
-            return json_encode($returnData);
+            return response()->json($returnData, 500);
         }
     }
 
@@ -45,26 +49,33 @@ class AreaController extends Controller {
         try{
             $data = array();
             $param = array();
-            $param['start'] = $request->start;
-            $param['limit'] = $request->limit;
-            $param['area_name'] = $request->area_name;
-            $param['location_id'] = $request->location_id;
-            $param['status'] = $request->status;
-            $objAreaModel = new AreaModel;
-            $lists = $objAreaModel->details($param);
+            $param['start'] = (int) ($request->start ?? 0);
+            $param['limit'] = (int) ($request->limit ?? 10);
+            $param['area_name'] = $request->area_name ?? null;
+            $param['location_id'] = $request->location_id ?? null;
+            $param['status'] = $request->status ?? null;
+            
+            $lists = AreaModel::details($param);
             $data['total_count'] = $lists['total_count'];
             $data['lists'] = array();
             $data['message'] = "No record found!";
+            $data['status'] = 'empty';
+            
             if($lists['total_count'] > 0){
-                $count = count($lists['data'])+ $request->start;
+                $count = count($lists['data']) + $param['start'];
                 $data['lists'] = $lists['data'];
                 $data['status'] = 'success';
-                $data['message'] = "Showing ".++$request->start." to ". $count ." of ".$lists['total_count']." records.";
+                $data['message'] = "Showing " . ($param['start'] + 1) . " to " . $count . " of " . $lists['total_count'] . " records.";
+                
+                // Add serial numbers for each row
+                foreach ($data['lists'] as $index => $list) {
+                    $list->serial_no = $param['start'] + $index + 1;
+                }
             }
-            return json_encode($data);
-        }catch(Throwable $e){         
+            return response()->json($data);
+        }catch(\Throwable $e){         
             $returnData = array('status' => 'warning', 'message' => $e->getMessage());
-            return json_encode($returnData);
+            return response()->json($returnData, 500);
         }
     }
 
@@ -79,12 +90,18 @@ class AreaController extends Controller {
             else {
                 $data['singleData'] = array();
             }
-            $data['locations'] = CommonModel::getSingle('locations', ['status' => 0]);
+            
+            // Get only non-deleted locations
+            $data['locations'] = DB::table('locations')
+                ->where('status', 0)
+                ->whereNull('deleted_at')
+                ->get();
+                
             return view('area.add',$data);
         }
         catch(\Throwable $e){
             $returnData = array('status' => 'warning', 'message' => $e->getMessage());
-            return json_encode($returnData);
+            return response()->json($returnData, 500);
         }
     }
 
@@ -93,41 +110,91 @@ class AreaController extends Controller {
             $data['title'] = "Area - View || HAQHAI";
             $param = array('id' => $id);
             $viewLists = AreaModel::details($param);
-            $data['views'] = $viewLists['data'][0];
+            $data['views'] = $viewLists['data'][0] ?? null;
             return view('area.view',$data);
         }
         catch(\Throwable $e){
             $returnData = array('status' => 'warning', 'message' => $e->getMessage());
-            return json_encode($returnData);
+            return response()->json($returnData, 500);
         }
     }
 
     function save(Request $request) {
         try{
+            \Log::info('Area Save Request:', $request->all());
+            
             $returnData = array();
             $AreaMasterValidation = new AreaMasterValidation();
             $validationResult = $AreaMasterValidation->validate($request->all());
             if ($validationResult !== null) {
-                return json_encode($validationResult);
+                return response()->json($validationResult);
             }
+            
             $objCommon = new CommonModel();
             $uniqueFieldValue = [
                 "area_name" => $request->area_name,
                 "location_id" => $request->location_id
             ];
-            $uniqueCount = $objCommon->checkMultiUnique($this->table,$uniqueFieldValue,$request["id"]);
-            if ($uniqueCount > 0) {
-                $returnData = ["status" => "exist","message" => "Location Name and Area  already exists!","unique_field" => $uniqueFieldValue];
-                return json_encode($returnData);
+            
+            // Check if area exists excluding soft deleted records
+            $existingArea = DB::table($this->table)
+                ->where('location_id', $request->location_id)
+                ->where('area_name', $request->area_name)
+                ->whereNull('deleted_at')
+                ->when($request->id, function($query, $id) {
+                    return $query->where('id', '!=', $id);
+                })
+                ->first();
+
+            \Log::info('Existing Area Check:', ['exists' => !is_null($existingArea)]);
+
+            if ($existingArea) {
+                $returnData = [
+                    "status" => "exist",
+                    "message" => "Area already exists in this location!",
+                    "unique_field" => $uniqueFieldValue
+                ];
+                \Log::warning('Area exists:', $returnData);
+                
+                if ($request->ajax()) {
+                    return response()->json($returnData);
+                }
+                return redirect()->back()->withInput()->with('status', 'exist')->with('message', $returnData['message']);
             }
+            
             $objAreaModel = new AreaModel();
             $post = $request->all();
+            
+            \Log::info('Data to save:', $post);
+            
             $returnData = $objAreaModel->saveData($post);
-            return json_encode($returnData);
+
+            \Log::info('Save result:', $returnData);
+
+            // If AJAX call, return JSON
+            if ($request->ajax()) {
+                return response()->json($returnData);
+            }
+
+            // Non-AJAX: redirect with flash
+            if (isset($returnData['status']) && $returnData['status'] == 'success') {
+                return redirect()->route('areas.index')->with('status', 'success')->with('message', $returnData['message']);
+            } else {
+                return redirect()->back()->withInput()->with('status', 'warning')->with('message', $returnData['message'] ?? 'Something went wrong');
+            }
         }
         catch(\Throwable $e){
-            $returnData = array('status' => 'warning', 'message' => $e->getMessage());
-            return json_encode($returnData);
+            \Log::error('Area Save Error:', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            
+            if ($request->ajax()) {
+                return response()->json(['status' => 'warning', 'message' => $e->getMessage()]);
+            }
+            return redirect()->back()->withInput()->with('status', 'warning')->with('message', $e->getMessage());
         }
     }
 
@@ -138,12 +205,81 @@ class AreaController extends Controller {
             $data = array('status' => $status , 'id' => $id);
             $objAreaModel = new AreaModel;
             $returnData = $objAreaModel->saveData($data);
-            return json_encode($returnData);
-        }catch(Throwable $e){
+            return response()->json($returnData);
+        }catch(\Throwable $e){
             $returnData = array('status' => 'warning', 'message' => $e->getMessage());
-            return json_encode($returnData);
+            return response()->json($returnData, 500);
         }
-    } 
-    function dataDownload(Request $request) {}
+    }
+    
+    function dataDownload(Request $request) {
+        return response()->json(['status' => 'success', 'message' => 'Not implemented']);
+    }
+    
+    public function destroy(Request $request, $id)
+    {
+        try {
+            \Log::info('Delete request received:', [
+                'id' => $id,
+                'method' => $request->method(),
+                'ajax' => $request->ajax(),
+                'wantsJson' => $request->wantsJson(),
+                'all_data' => $request->all()
+            ]);
 
+            $id = (int) $id;
+            if ($id <= 0) {
+                \Log::warning('Invalid ID for delete:', ['id' => $id]);
+                $resp = ['status' => 'warning', 'message' => 'Invalid ID'];
+                if ($request->ajax() || $request->wantsJson()) {
+                    return response()->json($resp, 400);
+                }
+                return redirect()->back()->with('status', 'warning')->with('message', 'Invalid ID');
+            }
+
+            // check exists and not already deleted
+            $objModel = new AreaModel();
+            $row = $objModel->getSingleData($id);
+            if (!$row) {
+                \Log::warning('Record not found for delete:', ['id' => $id]);
+                $resp = ['status' => 'warning', 'message' => 'Record not found or already deleted'];
+                if ($request->ajax() || $request->wantsJson()) {
+                    return response()->json($resp, 404);
+                }
+                return redirect()->back()->with('status', 'warning')->with('message', $resp['message']);
+            }
+
+            \Log::info('Deleting area:', ['id' => $id, 'area_name' => $row['area_name']]);
+
+            // Perform soft delete: set deleted_at and deleted_by
+            $deletedBy = Session::get('id') ?? null;
+            $result = DB::table('areas')->where('id', $id)->update([
+                'deleted_at' => date('Y-m-d H:i:s'),
+                'deleted_by' => $deletedBy
+            ]);
+
+            \Log::info('Delete result:', ['affected_rows' => $result, 'id' => $id]);
+
+            $resp = ['status' => 'success', 'message' => 'Area deleted successfully', 'id' => $id];
+
+            // Always return JSON for AJAX requests
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json($resp);
+            }
+
+            // Only redirect for non-AJAX requests
+            return redirect()->route('areas.index')->with('status', 'success')->with('message', $resp['message']);
+        } catch (\Throwable $e) {
+            \Log::error('Delete error:', [
+                'id' => $id,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            $resp = ['status' => 'warning', 'message' => $e->getMessage()];
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json($resp, 500);
+            }
+            return redirect()->back()->with('status', 'warning')->with('message', $e->getMessage());
+        }
+    }
 }

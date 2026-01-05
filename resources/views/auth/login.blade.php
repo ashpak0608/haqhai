@@ -72,9 +72,9 @@
 								<!--begin::Heading-->
 								<!--begin::Input group=-->
 								<div class="fv-row mb-8">
-									<!--begin::Email-->
-									<input type="email" id="email_id" name="email_id" placeholder="Enter Email" autocomplete="off" class="form-control bg-transparent email-validation hitenter" required />
-									<!--end::Email-->
+									<!--begin::Phone-->
+									<input type="text" id="phone_1" name="phone_1" placeholder="Enter Phone Number" autocomplete="off" class="form-control bg-transparent phone-validation hitenter" required />
+									<!--end::Phone-->
 								</div>
 								<!--end::Input group=-->
 								<div class="fv-row mb-3">

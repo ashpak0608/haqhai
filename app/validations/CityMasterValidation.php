@@ -7,8 +7,8 @@ class CityMasterValidation
     public function validate(array $data)
     {
         $validator = Validator::make($data, [
-            'city_name' => 'required',
-            'state_id' => 'required',
+            'city_name' => 'required'
+            // 'state_id' => 'required',
         ]);
 
         if ($validator->fails()) {
