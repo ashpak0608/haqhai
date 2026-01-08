@@ -6,7 +6,7 @@
       <meta name="description" content="Error Pages" />
       <meta name="viewport" content="width=device-width,initial-scale=1" />
       <meta name="author" content="Landmark Cars" />
-      <link rel="shortcut icon" href="<?php echo url('public/assets/images/favicon.png')?>">
+      <link rel="shortcut icon" href="<?php echo url('assets/images/favicon.png')?>">
       <link rel="stylesheet" href="https://themehelite.com/themeforest/404oops/css/style.min.css" />
       <style type="text/css">
          .content .content-box .big-content {width:15rem !important;min-height:18rem !important;margin: 0 auto 1rem !important;}

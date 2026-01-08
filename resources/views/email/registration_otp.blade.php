@@ -56,7 +56,7 @@
 <body>
     <div class="email-container">
         <div class="logo">
-            <img src="http://65.0.105.46/admin/public/assets/media/logos/logo.png" alt="Company Logo">
+            <img src="http://65.0.105.46/admin/assets/media/logos/logo.png" alt="Company Logo">
         </div>
 
         <div class="content center_display">

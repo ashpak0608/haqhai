@@ -15,28 +15,28 @@
 		<meta property="og:url" content="{{ config('constants.SITE_URL') }}" />
 		<meta property="og:site_name" content="HAQHAI" />
 
-        <link rel="shortcut icon" href="<?php echo url('public/assets/media/logos/favicon.png')?>">
+        <link rel="shortcut icon" href="<?php echo url('assets/media/logos/favicon.png')?>">
 
 		<!--begin::Fonts(mandatory for all pages)-->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
 		<!--end::Fonts(mandatory for all pages)-->
 
 		<!--begin::Vendor Stylesheets(used for this page only)-->
-		<link rel="stylesheet" type="text/css" href="<?php echo url('public/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css')?>">
-		<link rel="stylesheet" type="text/css" href="<?php echo url('public/assets/plugins/custom/datatables/datatables.bundle.css')?>">
+		<link rel="stylesheet" type="text/css" href="<?php echo url('assets/plugins/custom/fullcalendar/fullcalendar.bundle.css')?>">
+		<link rel="stylesheet" type="text/css" href="<?php echo url('assets/plugins/custom/datatables/datatables.bundle.css')?>">
 		<!--end::Vendor Stylesheets(used for this page only)-->
 
 		<!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
-        <link rel="stylesheet" type="text/css" href="<?php echo url('public/assets/plugins/global/plugins.bundle.css')?>">
-        <link rel="stylesheet" type="text/css" href="<?php echo url('public/assets/css/style.bundle.css')?>">
+        <link rel="stylesheet" type="text/css" href="<?php echo url('assets/plugins/global/plugins.bundle.css')?>">
+        <link rel="stylesheet" type="text/css" href="<?php echo url('assets/css/style.bundle.css')?>">
 		<!--end::Global Stylesheets Bundle(mandatory for all pages)-->
 
 		<!--begin::Global Javascript Bundle(mandatory for all pages)-->
-		<script type="text/javascript" src="<?php echo url('public/assets/plugins/global/plugins.bundle.js')?>"></script>
+		<script type="text/javascript" src="<?php echo url('assets/plugins/global/plugins.bundle.js')?>"></script>
 		<!--end::Global Javascript Bundle(mandatory for all pages)-->
 
 		<!--begin::Custom Stylesheets(created for common css)-->
-		<!-- <link rel="stylesheet" type="text/css" href="</?php echo url('public/assets/css/custom.css')?>"> -->
+		<!-- <link rel="stylesheet" type="text/css" href="</?php echo url('assets/css/custom.css')?>"> -->
 		<!--end::Custom Stylesheets(created for common css)-->
 		<script src="{{ url('public/validation/common.js')}}"></script>
 		<script src="{{ url('public/validation/jquery.validate.min.js')}}"></script>
@@ -68,8 +68,8 @@
 							<!--end::Sidebar mobile toggle-->
 							<!--begin::Logo-->
 							<a href="<?php echo url('/');?>" class="app-sidebar-logo">
-								<img alt="Logo" src="<?php echo url('public/assets/media/logos/logo.png')?>" class="h-50px theme-light-show" />
-								<img alt="Logo" src="<?php echo url('public/assets/media/logos/logo.png')?>" class="h-50px theme-dark-show" />
+								<img alt="Logo" src="<?php echo url('assets/media/logos/logo.png')?>" class="h-50px theme-light-show" />
+								<img alt="Logo" src="<?php echo url('assets/media/logos/logo.png')?>" class="h-50px theme-dark-show" />
 							</a>
 							<!--end::Logo-->
 						</div>
@@ -79,7 +79,7 @@
 							<div class="app-navbar-item ms-2 ms-lg-6" id="kt_header_user_menu_toggle">
 								<!--begin::Menu wrapper-->
 								<div class="cursor-pointer symbol symbol-circle symbol-30px symbol-lg-45px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-									<img src="<?php echo url('public/assets/media/avatars/300-1.jpg')?>" alt="user" />
+									<img src="<?php echo url('assets/media/avatars/300-1.jpg')?>" alt="user" />
 								</div>
 								<!--begin::User account menu-->
 								<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px" data-kt-menu="true">
@@ -88,7 +88,7 @@
 										<div class="menu-content d-flex align-items-center px-3">
 											<!--begin::Avatar-->
 											<div class="symbol symbol-50px me-5">
-												<img alt="Logo" src="<?php echo url('public/assets/media/avatars/300-1.jpg')?>" />
+												<img alt="Logo" src="<?php echo url('assets/media/avatars/300-1.jpg')?>" />
 											</div>
 											<!--end::Avatar-->
 											<!--begin::Username-->
@@ -303,12 +303,12 @@
 		<script>var hostUrl = "assets/";</script>
 		
         <!--begin::Global Javascript Bundle(mandatory for all pages)-->
-		<script type="text/javascript" src="<?php echo url('public/assets/js/scripts.bundle.js')?>"></script>
+		<script type="text/javascript" src="<?php echo url('assets/js/scripts.bundle.js')?>"></script>
 		<!--end::Global Javascript Bundle-->
 
 		<!--begin::Vendors Javascript(used for this page only)-->
-		<script type="text/javascript" src="<?php echo url('public/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js')?>"></script>
-		<script type="text/javascript" src="<?php echo url('public/assets/plugins/custom/datatables/datatables.bundle.js')?>"></script>
+		<script type="text/javascript" src="<?php echo url('assets/plugins/custom/fullcalendar/fullcalendar.bundle.js')?>"></script>
+		<script type="text/javascript" src="<?php echo url('assets/plugins/custom/datatables/datatables.bundle.js')?>"></script>
 		
 		<script type="text/javascript" src="https://cdn.amcharts.com/lib/5/index.js"></script>
 		<script type="text/javascript" src="https://cdn.amcharts.com/lib/5/xy.js"></script>
@@ -325,15 +325,15 @@
 		<!--end::Vendors Javascript-->
 
 		<!--begin::Custom Javascript(used for this page only)-->
-		<script type="text/javascript" src="<?php echo url('public/assets/js/widgets.bundle.js')?>"></script>
-		<script type="text/javascript" src="<?php echo url('public/assets/js/custom/widgets.js')?>"></script>
-		<script type="text/javascript" src="<?php echo url('public/assets/js/custom/apps/chat/chat.js')?>"></script>
-		<script type="text/javascript" src="<?php echo url('public/assets/js/custom/utilities/modals/upgrade-plan.js')?>"></script>
-		<script type="text/javascript" src="<?php echo url('public/assets/js/custom/utilities/modals/users-search.js')?>"></script>
+		<script type="text/javascript" src="<?php echo url('assets/js/widgets.bundle.js')?>"></script>
+		<script type="text/javascript" src="<?php echo url('assets/js/custom/widgets.js')?>"></script>
+		<script type="text/javascript" src="<?php echo url('assets/js/custom/apps/chat/chat.js')?>"></script>
+		<script type="text/javascript" src="<?php echo url('assets/js/custom/utilities/modals/upgrade-plan.js')?>"></script>
+		<script type="text/javascript" src="<?php echo url('assets/js/custom/utilities/modals/users-search.js')?>"></script>
 		<!--end::Custom Javascript-->
 		
         <!--begin::Custom Javascript(created for common function)-->
-        <script type="text/javascript" src="<?php echo url('public/assets/js/custom.js')?>"></script>
+        <script type="text/javascript" src="<?php echo url('assets/js/custom.js')?>"></script>
         <!--end::Custom Javascript(created for common function)-->
 		
         <!--end::Javascript-->

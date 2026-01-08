@@ -14,15 +14,15 @@
 		<meta property="og:url" content="{{ config('constants.SITE_URL') }}" />
 		<meta property="og:site_name" content="HAQHAI" />
 
-        <link rel="shortcut icon" href="<?php echo url('public/assets/media/logos/favicon.png')?>">
+        <link rel="shortcut icon" href="<?php echo url('assets/media/logos/favicon.png')?>">
 
 		<!--begin::Fonts(mandatory for all pages)-->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
 		<!--end::Fonts-->
 
 		<!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
-        <link rel="stylesheet" type="text/css" href="<?php echo url('public/assets/plugins/global/plugins.bundle.css')?>">
-        <link rel="stylesheet" type="text/css" href="<?php echo url('public/assets/css/style.bundle.css')?>">
+        <link rel="stylesheet" type="text/css" href="<?php echo url('assets/plugins/global/plugins.bundle.css')?>">
+        <link rel="stylesheet" type="text/css" href="<?php echo url('assets/css/style.bundle.css')?>">
 		<!--end::Global Stylesheets Bundle-->
 		<script> var SITE_URL = "<?php echo config('constants.SITE_URL');?>/"; </script>
 		<script> var ASSETS = "<?php echo config('constants.ASSETS');?>/"; </script>
@@ -34,7 +34,7 @@
 		<!--begin::Root-->
 		<div class="d-flex flex-column flex-root" id="kt_app_root">
 			<!--begin::Page bg image-->
-			<style>body { background-image: url('public/assets/media/auth/bg11.jpg'); } [data-bs-theme="dark"] body { background-image: url('public/assets/media/auth/bg4-dark.jpg'); }</style>
+			<style>body { background-image: url('assets/media/auth/bg11.jpg'); } [data-bs-theme="dark"] body { background-image: url('assets/media/auth/bg4-dark.jpg'); }</style>
 			<!--end::Page bg image-->
 			<!--begin::Authentication - Sign-in -->
 			<div class="d-flex flex-column flex-column-fluid flex-lg-row">
@@ -44,7 +44,7 @@
 					<div class="d-flex flex-center flex-lg-start flex-column">
 						<!--begin::Logo-->
 						<a href="<?php echo url('/');?>" class="mb-7">
-							<img alt="Logo" src="<?php echo url('public/assets/media/logos/logo.png')?>" />
+							<img alt="Logo" src="<?php echo url('assets/media/logos/logo.png')?>" />
 						</a>
 						<!--end::Logo-->
 						<!--begin::Title-->
@@ -151,12 +151,12 @@
 		<script>var hostUrl = "assets/";</script>
 		
         <!--begin::Global Javascript Bundle(mandatory for all pages)-->
-		<script type="text/javascript" src="<?php echo url('public/assets/plugins/global/plugins.bundle.js')?>"></script>
-		<script type="text/javascript" src="<?php echo url('public/assets/js/scripts.bundle.js')?>"></script>
+		<script type="text/javascript" src="<?php echo url('assets/plugins/global/plugins.bundle.js')?>"></script>
+		<script type="text/javascript" src="<?php echo url('assets/js/scripts.bundle.js')?>"></script>
 		<!--end::Global Javascript Bundle-->
 		
         <!--begin::Custom Javascript(created for common function)-->
-        <script type="text/javascript" src="<?php echo url('public/assets/js/custom.js')?>"></script>
+        <script type="text/javascript" src="<?php echo url('assets/js/custom.js')?>"></script>
         <!--end::Custom Javascript(created for common function)-->
 		
         <!--end::Javascript-->
