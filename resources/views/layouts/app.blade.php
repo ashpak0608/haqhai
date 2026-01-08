@@ -68,8 +68,8 @@
 							<!--end::Sidebar mobile toggle-->
 							<!--begin::Logo-->
 							<a href="<?php echo url('/');?>" class="app-sidebar-logo">
-								<img alt="Logo" src="<?php echo url('assets/media/logos/logo.png')?>" class="h-50px theme-light-show" />
-								<img alt="Logo" src="<?php echo url('assets/media/logos/logo.png')?>" class="h-50px theme-dark-show" />
+								<img alt="Logo" src="<?php echo url('assets/media/logos/haqhai_logo.png')?>" class="h-50px theme-light-show" />
+								<img alt="Logo" src="<?php echo url('assets/media/logos/haqhai_logo.png')?>" class="h-50px theme-dark-show" />
 							</a>
 							<!--end::Logo-->
 						</div>

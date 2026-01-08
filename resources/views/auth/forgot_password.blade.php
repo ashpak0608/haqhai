@@ -44,7 +44,7 @@
 					<div class="d-flex flex-center flex-lg-start flex-column">
 						<!--begin::Logo-->
 						<a href="<?php echo url('/');?>" class="mb-7">
-							<img alt="Logo" src="<?php echo url('assets/media/logos/logo.png')?>" />
+							<img alt="Logo" src="<?php echo url('assets/media/logos/haqhai_logo.png')?>" />
 						</a>
 						<!--end::Logo-->
 						<!--begin::Title-->
